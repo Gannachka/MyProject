@@ -49,27 +49,29 @@ namespace MyProject.Autentification
                             SqlCommand sqlCommand = new SqlCommand(select, connection);
                             using (SqlDataReader reader = sqlCommand.ExecuteReader())
                             {
-                                while (reader.Read())
+                                if (reader.Read())
                                 {
-                                    if (!reader.GetInt32(0).Equals(null))
+                                    if (!reader.IsDBNull(0))
                                     {
                                         DoctorWindow doctorWindow = new DoctorWindow(_mainWindow);
                                         _mainWindow.Hide();
                                         doctorWindow.Show();
                                     }
-                                    if (!reader.GetInt32(1).Equals(null))
+                                    else if (!reader.IsDBNull(1))
                                     {
                                         UserWindow userWindow = new UserWindow(_mainWindow);
                                         _mainWindow.Hide();
                                         userWindow.Show();
 
                                     }
-                                    if (!reader.GetInt32(2).Equals(null))
+                                    else if (!reader.IsDBNull(2))
                                     {
                                         AdminWindow adminWindow = new AdminWindow(_mainWindow);
                                         _mainWindow.Hide();
                                         adminWindow.Show();
                                     }
+                                    else
+                                        MessageBox.Show("Введён неправильный пароль");
                                 }
                             }
                         }

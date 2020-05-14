@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyProject.Registration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace MyProject
         {
             _mainWindow = mainWindow;
             mainWindow.Hide();
+            DataContext = new RegistrationViewModel(this, mainWindow);
             InitializeComponent();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

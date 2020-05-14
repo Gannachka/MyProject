@@ -25,8 +25,8 @@ namespace MyProject.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-HLUUSUB\\SQLEXPRESS ; InitialCatalog=CourseProgect; Integrated" +
-            " Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-HLUUSUB\\SQLEXPRESS ; Initial Catalog=CourseProgect; Integrate" +
+            "d Security=True")]
         public string Connection {
             get {
                 return ((string)(this["Connection"]));
@@ -35,5 +35,7 @@ namespace MyProject.Properties {
                 this["Connection"] = value;
             }
         }
+
+        public string ReservedConnection { get; internal set; }
     }
 }
