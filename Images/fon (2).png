@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2019 (64-Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="423mm" height="325mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 42300 32500"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#2B2A29;stroke-width:20;stroke-miterlimit:22.9256}
+    .fil0 {fill:#ECFDFD}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <rect x="-46.34" y="-10.26" width="42392.68" height="32520.52"/>
+   </clipPath>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="28.33" y="-48.85" width="42277.23" height="32550.59"/>
+  <g style="clip-path:url(#id0)">
+   <image x="-46.34" y="-10.26" width="42392.68" height="32520.52" xlink:href="fon_Images\fon_ImgID1.png"/>
+  </g>
+ </g>
+</svg>
