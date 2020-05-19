@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyProject.Doctor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,9 @@ namespace MyProject
     /// </summary>
     public partial class DoctorWindow : Window
     {
-        public DoctorWindow(MainWindow mainWindow)
+        public DoctorWindow(MainWindow mainWindow, int ID)
         {
+            DataContext = new DoctorViewModel(ID);
             InitializeComponent();
         }
     }

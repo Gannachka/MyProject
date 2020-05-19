@@ -1,4 +1,6 @@
-﻿using MyProject.baseofMVVM;
+﻿
+using MyProject.baseofMVVM;
+using MyProject.Registration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,12 +11,15 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
+
 namespace MyProject.Autentification
 {
     class UserAuthenticationViewModel : INotifyPropertyChanged
     {
         private MainWindow _mainWindow;
         private UserAuthetification _selectedUserAuthentication;
+        private RegistrationViewModel registration;
         public UserAuthetification SelectedUserAuthentication
         {
             get
@@ -38,30 +43,27 @@ namespace MyProject.Autentification
                         UserAuthetification user = obj as UserAuthetification;
                         user.Password = _mainWindow.AuthenticationPassBox.Password;
                         SqlConnection connection = new SqlConnection(Properties.Settings.Default.Connection);
-                        try
-                        {
-                            connection.Open();
 
-                        }
-                        finally
-                        {
+                       
                             string select = $" select IDDOCTOR, IDPACIENT, IDADMIN FROM AUTINTIFICATION WHERE LOGIN='{user.Login}' AND PASSWORD='{user.Password}'";
                             SqlCommand sqlCommand = new SqlCommand(select, connection);
+                        connection.Open();
                             using (SqlDataReader reader = sqlCommand.ExecuteReader())
                             {
                                 if (reader.Read())
                                 {
                                     if (!reader.IsDBNull(0))
                                     {
-                                        DoctorWindow doctorWindow = new DoctorWindow(_mainWindow);
+                                        DoctorWindow doctorWindow = new DoctorWindow(_mainWindow, reader.GetInt32(0));
                                         _mainWindow.Hide();
                                         doctorWindow.Show();
                                     }
                                     else if (!reader.IsDBNull(1))
                                     {
-                                        UserWindow userWindow = new UserWindow(_mainWindow);
+                                        UserWindow userWindow = new UserWindow(_mainWindow, reader.GetInt32(1));
                                         _mainWindow.Hide();
-                                        userWindow.Show();
+                                       userWindow.Show();
+                                       
 
                                     }
                                     else if (!reader.IsDBNull(2))
@@ -74,7 +76,7 @@ namespace MyProject.Autentification
                                         MessageBox.Show("Введён неправильный пароль");
                                 }
                             }
-                        }
+                        
                     }));
             }
         }

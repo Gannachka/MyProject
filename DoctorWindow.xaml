@@ -52,9 +52,9 @@
                         <ImageBrush ImageSource="Images/user.png" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Label Content="Ф.И.О" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4" />
-                <Label Content="специаизация" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" />
-                <Label Content="дата рождения" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="4" />
+                <Label Content="{Binding Name}" DataContext="{Binding Doctor}" Grid.Row="7" Grid.ColumnSpan="6" Margin="31,28.6,30.2,0" Grid.RowSpan="3" />
+                <Label Content="{Binding Specialization}" DataContext="{Binding Doctor}" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" />
+                <Label Content="{Binding Room}" DataContext="{Binding Doctor}" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="4" />
                 <Button Content="Выход" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="4" />
 
             </Grid>
@@ -168,9 +168,9 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan=" 12" Grid.RowSpan="11">
                             <Label HorizontalAlignment="Center">Направление</Label>
-                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="21" Margin="159,0,162.8,0"></TextBox>
                             <Label HorizontalAlignment="Center">Выберете врача</Label>
-                            <ComboBox x:Name="priority" Margin="0,0,-0.4,0">
+                            <ComboBox x:Name="priority" Margin="159,0,163.2,0">
                                 <ComboBox.Background>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -184,8 +184,17 @@
 
 
                             <Label HorizontalAlignment="Center" RenderTransformOrigin="0.482,1.006">Дата</Label>
-                            <DatePicker x:Name="calendarStart" SelectedDate="04/21/2020"  DisplayDateStart="04/21/2020" DisplayDateEnd="01/01/2030" Height="27"  FontSize="15"  Margin="0,10,-0.4,10" Background="Ivory"/>
+                            <DatePicker x:Name="calendarStart" SelectedDate="04/21/2020"  DisplayDateStart="04/21/2020" DisplayDateEnd="01/01/2030" Height="27"  FontSize="15"  Margin="159,10,163.2,10" Background="Ivory"/>
                             <Label HorizontalAlignment="Center">Время</Label>
+                            <ComboBox x:Name="time" Margin="159,0,163.2,0">
+                                <ComboBox.Background>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                        <GradientStop Color="Ivory" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
+
                         </StackPanel>
                         <Button Content="Записать" Grid.Column="5" Grid.Row="13" Grid.RowSpan="3" Background="WhiteSmoke" Grid.ColumnSpan="3" BorderBrush="#FFBF89" BorderThickness="3">
                             <Button.Effect>

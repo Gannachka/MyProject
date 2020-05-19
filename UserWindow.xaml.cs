@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyProject.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,10 @@ namespace MyProject
     /// </summary>
     public partial class UserWindow : Window
     {
-        public UserWindow(MainWindow mainWindow)
+        public UserWindow(MainWindow mainWindow, int ID)
         {
+            DataContext = new UserViewModel(ID);
+
             InitializeComponent();
         }
     }

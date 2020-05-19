@@ -99,18 +99,20 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Пациенты" Grid.Column="5 " Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="3" Foreground="#207676" Background="White" VerticalAlignment="Bottom" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
-                    <ListView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12" Background="WhiteSmoke" >
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="True">
-                                <GridViewColumn Header="день рождения"/>
-                                <GridViewColumn Header="пол"/>
-                                <GridViewColumn Header="телефон"/>
-                                <GridViewColumn Header="эл.почта"/>
-                                <GridViewColumn Header="Ф.И.О пациента"/>
 
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding PACIENT}"  Background="#FFD8ECF9" >
+                       
+                            <DataGrid.Columns >
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path= IDpacient, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Path= Surname, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Path= Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Пол"/>
+                                <DataGridTextColumn Header="эл.почта" Binding="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}"/>
+                               
+
+                            </DataGrid.Columns>
+                        
+                    </DataGrid>
                     <Button Content="Удалить" Grid.Column="2" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" BorderBrush="#FFBF89" BorderThickness="3">
                         <Button.Effect>
                             <DropShadowEffect/>

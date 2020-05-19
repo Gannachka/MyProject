@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyProject.Administrator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,20 @@ namespace MyProject
     /// </summary>
     public partial class AdminWindow : Window
     {
+        public delegate void WindowLoaded();
+        public event WindowLoaded Execute;
+
         public AdminWindow(MainWindow mainWindow)
         {
-            InitializeComponent();
+                      
+
+                AdminViewModel admin = new AdminViewModel();
+
+                DataContext = admin;
+                Execute += admin.LoadUsers;
+                Execute.Invoke();
+
+                InitializeComponent();
         }
     }
 }

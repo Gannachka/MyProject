@@ -188,7 +188,7 @@ namespace MyProject.Registration
                             {
                                 connection.Open();
                             }
-
+                             
                             finally
                             {
                                 using (SqlTransaction transaction = connection.BeginTransaction())
@@ -197,7 +197,7 @@ namespace MyProject.Registration
                                     command.Transaction = transaction;
                                     try
                                     {
-                                        string insert0 = $"insert into PACIENT VALUES( 1, '{Bday}', '{Name}', '{Email}', '{Surname}', '{Image}', '{Gender.ToString()}' )";
+                                        string insert0 = $"insert into PACIENT VALUES( 1, '{Bday}', '{Name}' , '{Surname}' , '{Gender.ToString()}' , '{Email}', '{Image}')";
                                         string insert1 = $"SELECT PACIENT.PACIENTID FROM PACIENT WHERE PACIENT.BIRTHDAY = '{Bday}' AND PACIENT.NAME='{Name}' " +
                                         $"AND PACIENT.GENDER='{Gender}' AND PACIENT.EMAIL='{Email}' AND PACIENT.SURNAME='{Surname}'"; ;
                                         string insert = $"insert into AUTINTIFICATION (PASSWORD, LOGIN, IDPACIENT) values ( '{Password}','{Email}', @ID)";
