@@ -1,4 +1,5 @@
 ﻿using MyProject.Administrator;
+using MyProject.Autentification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,18 +23,26 @@ namespace MyProject
     {
         public delegate void WindowLoaded();
         public event WindowLoaded Execute;
+        public delegate void WindowLoadedD();
+        public event WindowLoadedD ExecuteD;
+        private MainWindow _mainWindow;
 
         public AdminWindow(MainWindow mainWindow)
         {
-                      
-
-                AdminViewModel admin = new AdminViewModel();
+           AdminViewModel admin = new AdminViewModel(this);
 
                 DataContext = admin;
                 Execute += admin.LoadUsers;
+                ExecuteD += admin.LoadDoctors;
                 Execute.Invoke();
+            ExecuteD.Invoke();
+            _mainWindow = mainWindow;
+            InitializeComponent();
+        }
 
-                InitializeComponent();
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _mainWindow.Show();
         }
     }
 }

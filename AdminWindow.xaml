@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyProject"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="570" Width="800"  ResizeMode="NoResize" >
+        Title="AdminWindow" Height="570" Width="800"  Closing="Window_Closing" >
     <Window.Background >
 
         <ImageBrush  ImageSource= "Images/fon2.png"/>
@@ -52,13 +52,27 @@
                         <ImageBrush ImageSource="Images/user.png" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Button Content="Выход" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="4" />
-
+                <Button Content="Поиск" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="4">
+                </Button>
+                <Label Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4"  FontSize="17" Content="Пациенты" FontFamily="Gabriola" />
+                <TextBox Grid.Row="9" Grid.ColumnSpan="4" Opacity="0.7" Name="SearchPacient" Margin="31,0,0.4,3" />
+                <Button Grid.Column="4" Command="{Binding SearchPacient}" Grid.Row="9" BorderBrush="{x:Null}">
+                    <Button.Background >
+                        <ImageBrush ImageSource="Images/Search.png"/>
+                    </Button.Background>
+                </Button>
+                <Label Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" FontSize="17" Content="Врачи" FontFamily="Gabriola"  />
+                <TextBox Grid.Row="11" Grid.ColumnSpan="4" Opacity="0.7" Margin="31,0,0.4,2"/>
+                <Button Grid.Column="4" Grid.Row="11" BorderBrush="{x:Null}">
+                    <Button.Background >
+                        <ImageBrush ImageSource="Images/Search.png"/>
+                    </Button.Background>
+                </Button>
             </Grid>
 
         </StackPanel>
-        <TabControl Grid.ColumnSpan="2" Margin="183,0,-0.4,0" >
-            <TabItem Header="История" Background="#e7fdfd" Width="100" Margin="0,0,0,-29" >
+        <TabControl Grid.Column="1"  >
+            <TabItem Header="Пациенты" Background="#e7fdfd" Width="100" Margin="0,0,0,-29" >
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -100,25 +114,25 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Пациенты" Grid.Column="5 " Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="3" Foreground="#207676" Background="White" VerticalAlignment="Bottom" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
 
-                    <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding PACIENT}"  Background="#FFD8ECF9" >
-                       
-                            <DataGrid.Columns >
+                    <DataGrid CanUserAddRows="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding PACIENT}"  SelectedItem="{Binding SelectedUser}"  Background="#FFD8ECF9" >
+
+                        <DataGrid.Columns >
                             <DataGridTextColumn Header="Id" Binding="{Binding Path= IDpacient, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Фамилия" Binding="{Binding Path= Surname, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Имя" Binding="{Binding Path= Name, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Пол"/>
-                                <DataGridTextColumn Header="эл.почта" Binding="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}"/>
-                               
+                            <DataGridTextColumn Header="Пол" Binding="{Binding Path=Gender}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="эл.почта" Binding="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            </DataGrid.Columns>
-                        
+
+                        </DataGrid.Columns>
+
                     </DataGrid>
-                    <Button Content="Удалить" Grid.Column="2" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" BorderBrush="#FFBF89" BorderThickness="3">
+                    <Button Content="Удалить" Grid.Column="2" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" Command="{Binding DeletePacient}"  CommandParameter="{Binding SelectedUser}" BorderBrush="#FFBF89" BorderThickness="3">
                         <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
                     </Button>
-                    <Button Content="Редактировать" Grid.Column="8" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" BorderBrush="#FFBF89" BorderThickness="3">
+                    <Button Content="Добавить" Grid.Column="8" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="4" CommandParameter="{Binding SelectedUser}" Command="{Binding Add}" BorderBrush="#FFBF89" BorderThickness="3" Height="26"  VerticalAlignment="Bottom">
                         <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
@@ -126,71 +140,74 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Записать на приём" Background="#e7fdfd" Width="100" Margin="0,0,0,-29" >
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,26,-0.4,0" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="41.6"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Пациенты" Grid.Column="5 " Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="3" Foreground="#207676" Background="White" VerticalAlignment="Bottom" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
-                        <ListView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12" Background="WhiteSmoke" >
-                            <ListView.View>
-                                <GridView AllowsColumnReorder="True">
-                                    <GridViewColumn Header="кабинет"/>
-                                    <GridViewColumn Header="специализация"/>
-                                    <GridViewColumn Header="стаж работы"/>
-                                    <GridViewColumn Header="Ф.И.О врача"/>
+            <TabItem Header="Врачи" Background="#e7fdfd" Width="100" Margin="0,0,0,-29" >
 
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <Button Content="Удалить" Grid.Column="2" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" BorderBrush="#FFBF89" BorderThickness="3">
-                            <Button.Effect>
-                                <DropShadowEffect/>
-                            </Button.Effect>
-                        </Button>
-                        <Button Content="Редактировать" Grid.Column="8" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" BorderBrush="#FFBF89" BorderThickness="3">
-                            <Button.Effect>
-                                <DropShadowEffect/>
-                            </Button.Effect>
-                        </Button>
-                    </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Врачи" Grid.Column="5 " Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="3" Foreground="#207676" Background="White" VerticalAlignment="Bottom" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
 
-                </ScrollViewer>
+                    <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding DOCTOR}" SelectedItem="{Binding SelectedUser}" Background="#FFD8ECF9" >
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path= IDdoctor, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Ф.И.О." Binding="{Binding Path= Doctor, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Специализация" Binding="{Binding Path= Specialization, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Стаж" Binding="{Binding Path= Experience, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Кабинет" Binding="{Binding Path=Room, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    <Button Content="Удалить" Grid.Column="9" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" Command="{Binding DeleteDoctor}" CommandParameter="{Binding SelectedUser}"  BorderBrush="#FFBF89" BorderThickness="3" Margin="0.4,0.2,0.2,0.2">
+                        <Button.Effect>
+                            <DropShadowEffect/>
+                        </Button.Effect>
+                    </Button>
+                    <Button Content="Добавить"  Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="5" BorderBrush="#FFBF89" BorderThickness="3" Margin="43,0.2,42,0.2" Grid.Column="1">
+                        <Button.Effect>
+                            <DropShadowEffect/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+
+
             </TabItem>
         </TabControl>
     </Grid>

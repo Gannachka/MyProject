@@ -72,6 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddPacient.xaml.cs">
+      <DependentUpon>AddPacient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\Add.cs" />
     <Compile Include="Administrator\Admin.cs" />
     <Compile Include="Administrator\AdminViewModel.cs" />
     <Compile Include="DoctorWindow.xaml.cs">
@@ -87,11 +91,18 @@
     </Compile>
     <Compile Include="Registration\Registration.cs" />
     <Compile Include="Registration\RegistrationViewModel.cs" />
+    <Compile Include="ShowPacient.xaml.cs">
+      <DependentUpon>ShowPacient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="User\User.cs" />
     <Compile Include="User\UserViewModel.cs" />
+    <Page Include="AddPacient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -123,6 +134,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowPacient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,6 +187,7 @@
     <Resource Include="Images\user.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Search.png" />
     <Content Include="SQLQuery2.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

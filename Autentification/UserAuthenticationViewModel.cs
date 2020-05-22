@@ -19,7 +19,7 @@ namespace MyProject.Autentification
     {
         private MainWindow _mainWindow;
         private UserAuthetification _selectedUserAuthentication;
-        private RegistrationViewModel registration;
+       
         public UserAuthetification SelectedUserAuthentication
         {
             get
@@ -81,6 +81,8 @@ namespace MyProject.Autentification
             }
         }
         private RelayCommand _registration;
+        private AdminWindow adminWindow;
+
         public RelayCommand Registration
         {
             get
@@ -98,6 +100,12 @@ namespace MyProject.Autentification
             SelectedUserAuthentication = new UserAuthetification();
             _mainWindow = mainWindow;
         }
+
+        public UserAuthenticationViewModel(AdminWindow adminWindow)
+        {
+            this.adminWindow = adminWindow;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

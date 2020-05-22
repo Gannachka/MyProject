@@ -30,6 +30,7 @@ namespace MyProject.Registration
     {
         public delegate void End();
         public event End Execute;
+       
         private string _name;
         public string Name
         {
@@ -110,11 +111,12 @@ namespace MyProject.Registration
             }
             set
             {
-                if(Regex.IsMatch(value, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$") && value.Length>7)
+                if (Regex.IsMatch(value, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$") && value.Length > 7)
                 {
                     _password = GetHash(value);
                     OnPropertyChanged("Password");
-                } 
+                }
+               
             }
         }
         private string GetHash(string input)
@@ -228,6 +230,8 @@ namespace MyProject.Registration
                             }
 
                         }
+                        else
+                            MessageBox.Show("Пароль должен состоять из");
                     }));
             }
         }
