@@ -1,0 +1,52 @@
+﻿<Window x:Class="MyProject.AddDoctor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyProject" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="AddDoctor" Height="564.192" Width="384.962" Background="#62b6b5">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Логин" Grid.ColumnSpan="4" FontSize="15" Grid.RowSpan="2" HorizontalContentAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" MaxLength="50" DataContext="{Binding SelectedUser}" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Пароль" Grid.ColumnSpan="4" Grid.RowSpan="2" HorizontalContentAlignment="Center" FontSize="15"/>
+        <PasswordBox x:Name="AuthenticationPassBox" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged">
+                    <i:InvokeCommandAction Command="{Binding PassChanged}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
+        <Label Grid.Row="4" Grid.Column="0" Content="Фамилия имя отчество" Grid.ColumnSpan="4" Grid.RowSpan="2" FontSize="15" HorizontalContentAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" MaxLength="50" DataContext="{Binding SelectedUser}" Text="{Binding Doctor, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Специализация" FontSize="15" Grid.ColumnSpan="4" Grid.RowSpan="2" HorizontalContentAlignment="Center"/>
+        <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" MaxLength="50" DataContext="{Binding SelectedUser}" Text="{Binding Specialization, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Row="8" Grid.Column="0" Content="Стаж работы" FontSize="15" Grid.ColumnSpan="4" Grid.RowSpan="2" HorizontalContentAlignment="Center"/>
+        <TextBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="4" MaxLength="50" DataContext="{Binding SelectedUser}" Text="{Binding Experience, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Grid.Row="10" Grid.Column="0" Content="Кабинет" FontSize="15" Grid.ColumnSpan="4" Grid.RowSpan="2" HorizontalContentAlignment="Center"/>
+        <TextBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="4" MaxLength="50" DataContext="{Binding SelectedUser}" Text="{Binding Room, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" Content="Подтвердить" FontSize="15" BorderBrush="{x:Null}" Background="{x:Null}" CommandParameter="{Binding SelectedUser}"  Command="{Binding AddNewDoc}"/>
+    </Grid>
+</Window>

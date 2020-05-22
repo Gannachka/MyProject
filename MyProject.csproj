@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddDoctor.xaml.cs">
+      <DependentUpon>AddDoctor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddPacient.xaml.cs">
       <DependentUpon>AddPacient.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
     </Compile>
     <Compile Include="User\User.cs" />
     <Compile Include="User\UserViewModel.cs" />
+    <Page Include="AddDoctor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddPacient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

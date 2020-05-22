@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace MyProject.Administrator
@@ -22,8 +23,6 @@ namespace MyProject.Administrator
         public ObservableCollection<Admin> PACIENT { get; set; } = new ObservableCollection<Admin>();
         public ObservableCollection<Admin> DOCTOR { get; set; } = new ObservableCollection<Admin>();
         public ObservableCollection<Admin> DOCTORS { get; set; } = new ObservableCollection<Admin>();
-
-
         public AdminWindow _adminWindow;
         private Add _addP;
         public Add AddP
@@ -41,6 +40,7 @@ namespace MyProject.Administrator
         }
         private Admin _selectedUser;
         private AddPacient pacient;
+        private AddDoctor doctor;
 
         public Admin SelectedUser
         {
@@ -105,18 +105,6 @@ namespace MyProject.Administrator
                    }));
             }
         }
-        private RelayCommand _passChanged;
-        public RelayCommand PassChanged1
-        {
-            get
-            {
-                return _passChanged ??
-                    (_passChanged = new RelayCommand(obj =>
-                    {
-                        AddP.Password = pacient.AuthenticationPassBox.Password;
-                    }));
-            }
-        }
         private RelayCommand _addNew;
         public RelayCommand AddNew
         {
@@ -137,6 +125,66 @@ namespace MyProject.Administrator
                             admin.Gender = pacient.Gender;
                             PACIENT.Add(admin);
                         }
+                    }));
+            }
+        }
+
+        private RelayCommand _addDoctor;
+        public RelayCommand AddDoctor
+        {
+            get
+            {
+                return _addDoctor ??
+                    (_addDoctor = new RelayCommand(obj =>
+                    {
+                        AddDoctor doctor = new AddDoctor(this);
+                        this.doctor = doctor;
+                        SelectedUser = new Admin();
+                        doctor.ShowDialog();
+
+                    }));
+            }
+        }
+        private RelayCommand _addNewDoc;
+        public RelayCommand AddNewDoc
+        {
+            get
+            {
+                return _addNewDoc ??
+                    (_addNewDoc = new RelayCommand(obj =>
+                    {
+                        Admin admin = obj as Admin;
+                        if (admin != null)
+                        {
+                            
+                            admin.AddNewDoctor();
+                            DOCTOR.Add(admin);
+                        }
+
+                    }));
+            }
+        }
+        private RelayCommand _passChanged;
+        public RelayCommand PassChanged1
+        {
+            get
+            {
+                return _passChanged ??
+                    (_passChanged = new RelayCommand(obj =>
+                    {
+                        AddP.Password = pacient.AuthenticationPassBox.Password;
+                    }));
+            }
+        }
+        private RelayCommand _passchanged;
+        public RelayCommand PassChanged
+        {
+            get
+            {
+                return _passchanged ??
+                    (_passchanged = new RelayCommand(obj =>
+                    {
+                        SelectedUser.Password = doctor.AuthenticationPassBox.Password;
                     }));
             }
         }

@@ -132,7 +132,7 @@
                             <DropShadowEffect/>
                         </Button.Effect>
                     </Button>
-                    <Button Content="Добавить" Grid.Column="8" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="4" CommandParameter="{Binding SelectedUser}" Command="{Binding Add}" BorderBrush="#FFBF89" BorderThickness="3" Height="26"  VerticalAlignment="Bottom">
+                    <Button Content="Добавить" Grid.Column="8" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="4" CommandParameter="{Binding SelectedUser}" Command="{Binding Add}" BorderBrush="#FFBF89" BorderThickness="3" MinHeight="26"  VerticalAlignment="Bottom">
                         <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
@@ -200,7 +200,7 @@
                             <DropShadowEffect/>
                         </Button.Effect>
                     </Button>
-                    <Button Content="Добавить"  Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="5" BorderBrush="#FFBF89" BorderThickness="3" Margin="43,0.2,42,0.2" Grid.Column="1">
+                    <Button Content="Добавить" Command="{Binding AddDoctor}"  Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="5" BorderBrush="#FFBF89" BorderThickness="3" Margin="43,0.2,42,0.2" Grid.Column="1">
                         <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>

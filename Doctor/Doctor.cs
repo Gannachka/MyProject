@@ -72,7 +72,6 @@ namespace MyProject.Doctor
                     while (reader.Read())
                     {
                         Name= reader.GetString(2);
-                     
                         Specialization = reader.GetString(3);
                         Room = reader.GetInt32(5);
 
