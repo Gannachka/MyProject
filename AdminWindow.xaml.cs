@@ -31,10 +31,10 @@ namespace MyProject
         {
            AdminViewModel admin = new AdminViewModel(this);
 
-                DataContext = admin;
-                Execute += admin.LoadUsers;
-                ExecuteD += admin.LoadDoctors;
-                Execute.Invoke();
+            DataContext = admin;
+            Execute += admin.LoadUsers;
+            ExecuteD += admin.LoadDoctors;
+            Execute.Invoke();
             ExecuteD.Invoke();
             _mainWindow = mainWindow;
             InitializeComponent();

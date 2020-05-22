@@ -91,6 +91,9 @@
     </Compile>
     <Compile Include="Registration\Registration.cs" />
     <Compile Include="Registration\RegistrationViewModel.cs" />
+    <Compile Include="ShowDoctor.xaml.cs">
+      <DependentUpon>ShowDoctor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShowPacient.xaml.cs">
       <DependentUpon>ShowPacient.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowDoctor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -21,6 +21,8 @@ namespace MyProject.Administrator
         public ObservableCollection<Admin> PACIENTS { get; set; } = new ObservableCollection<Admin>();
         public ObservableCollection<Admin> PACIENT { get; set; } = new ObservableCollection<Admin>();
         public ObservableCollection<Admin> DOCTOR { get; set; } = new ObservableCollection<Admin>();
+        public ObservableCollection<Admin> DOCTORS { get; set; } = new ObservableCollection<Admin>();
+
 
         public AdminWindow _adminWindow;
         private Add _addP;
@@ -298,7 +300,7 @@ namespace MyProject.Administrator
                     (_searchPacient = new RelayCommand(obj =>
                        {
                            ShowPacient pacient = new ShowPacient(this);
-                           var search = from t in PACIENT where t.Surname == _adminWindow.SearchPacient.Text || t.Name == _adminWindow.SearchPacient.Text || t.IDpacient == Convert.ToInt32(_adminWindow.SearchPacient.Text) select t;
+                           var search = from t in PACIENT where t.Surname == _adminWindow.SearchPacient.Text || t.Name == _adminWindow.SearchPacient.Text || Convert.ToString(t.IDpacient) == _adminWindow.SearchPacient.Text select t;
                            foreach (var item in search)
                            {
                                PACIENTS.Add(item);
@@ -306,6 +308,25 @@ namespace MyProject.Administrator
                            pacient.ShowDialog();
 
                        }));
+            }
+        }
+        private RelayCommand _searchDoctor;
+        public RelayCommand SearchDoctor
+        {
+            get
+            {
+                return _searchDoctor ??
+                    (_searchDoctor = new RelayCommand(obj =>
+                    {
+                        ShowDoctor pacient = new ShowDoctor(this);
+                        var search = from t in DOCTOR where t.Specialization == _adminWindow.SearchDoctor.Text || t.Doctor == _adminWindow.SearchDoctor.Text || Convert.ToString(t.IDdoctor) == _adminWindow.SearchDoctor.Text select t;
+                        foreach (var item in search)
+                        {
+                            DOCTORS.Add(item);
+                        }
+                        pacient.ShowDialog();
+
+                    }));
             }
         }
         public AdminViewModel(AdminWindow adminWindow)
