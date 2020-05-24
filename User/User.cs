@@ -12,8 +12,9 @@ using System.Windows.Media.Imaging;
 
 namespace MyProject.User
 {
-    class User : INotifyPropertyChanged
+    public class User : INotifyPropertyChanged
     {
+        public int id { get; private set; }
         private string _name;
         public string Name
         {
@@ -60,6 +61,7 @@ namespace MyProject.User
         }
         public User(int id)
         {
+            this.id = id;
             CreateNewUser(id);
         }
         private void CreateNewUser(int id)

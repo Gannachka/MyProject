@@ -52,6 +52,64 @@ namespace MyProject.Doctor
                 OnPropertyChanged("Room");
             }
         }
+        private DateTime _dateVisit;
+        public DateTime DataVisit
+        {
+            get
+            {
+                return _dateVisit;
+            }
+            set
+            {
+                _dateVisit = value;
+                OnPropertyChanged("DataVisit");
+            }
+        }
+        private TimeSpan _timeVisit;
+        public TimeSpan TimeVisit
+        {
+            get
+            {
+                return _timeVisit;
+            }
+            set
+            {
+                _timeVisit = value;
+                OnPropertyChanged("DataVisit");
+            }
+        }
+        private string _pacientname;
+        public string PacientName
+        {
+            get
+            {
+                return _pacientname;
+            }
+            set
+            {
+                _pacientname = value;
+
+                OnPropertyChanged("Name");
+            }
+        }
+        private string _sername;
+        public string Surname
+        {
+            get
+            {
+                return _sername;
+            }
+            set
+            {
+                _sername = value;
+                OnPropertyChanged("Surname");
+            }
+        }
+        private void LoadVisits()
+        {
+
+        }
+
         public Doctor(int id)
         {
             CreateNewDoctor(id);

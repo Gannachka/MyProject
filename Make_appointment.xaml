@@ -1,0 +1,57 @@
+﻿<Window x:Class="MyProject.Make_appointment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:MyProject" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Make_appointment" Height="564.192" Width="384.962" Background="#62b6b5">
+    <Grid>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan=" 12" Grid.RowSpan="11">
+            <Label Content="  Записаться на приём" FontFamily="Gabriola" FontSize="35"     VerticalAlignment="Bottom" FontWeight="ExtraBold" FontStretch="UltraCondensed" Margin="42,0,38.4,0" />
+
+            <Label HorizontalAlignment="Center" FontSize="16" >Направление</Label>
+            <ComboBox  x:Name="doctor_specialization" Height="28" >
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="Ivory" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger  EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SortDoctors}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+               
+            </ComboBox>
+
+            <Label HorizontalAlignment="Center"  FontSize="16">Выберете врача</Label>
+            <ComboBox  x:Name="doctor_Name" Height="28" >
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="Ivory" Offset="1"/>
+                    </LinearGradientBrush> 
+                </ComboBox.Background>
+            
+
+            </ComboBox>
+
+
+            <Label HorizontalAlignment="Center"  FontSize="16" >Дата</Label>
+            <DatePicker x:Name="calendar"    DisplayDateEnd="06/02/2020" Height="28"  FontSize="15"   Background="Ivory"/>
+            <Label HorizontalAlignment="Center"  FontSize="16">Время</Label>
+            <xctk:TimePicker Name="Time" ShowButtonSpinner="False" Margin="0,0,0.4,0"  StartTime="10:00" EndTime="18:00"  Height="29"/>
+            <Button Content="Записаться"  Command="{Binding AddVisit}" Background="WhiteSmoke" BorderBrush="#FFBF89" BorderThickness="3" Margin="80,80,80,0" Height="58" >
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+                
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

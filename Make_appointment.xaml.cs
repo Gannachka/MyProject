@@ -16,21 +16,20 @@ using System.Windows.Shapes;
 namespace MyProject
 {
     /// <summary>
-    /// Логика взаимодействия для UserWindow.xaml
+    /// Логика взаимодействия для Make_appointment.xaml
     /// </summary>
-    public partial class UserWindow : Window
+    public partial class Make_appointment : Window
     {
-        private readonly MainWindow _mainWindow;
-        public UserWindow(MainWindow mainWindow, int ID)
+       
+        public Make_appointment(UserViewModel vM)
         {
-            DataContext = new UserViewModel(ID);
-            _mainWindow = mainWindow;
+            
+            DataContext = vM;
             InitializeComponent();
+            calendar.DisplayDateStart = DateTime.Now;
+            Time.TimeInterval = TimeSpan.FromMinutes(15.0);
         }
+       
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            _mainWindow.Show();
-        }
     }
 }
