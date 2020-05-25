@@ -116,7 +116,7 @@ namespace MyProject.Registration
                     _password = GetHash(value);
                     OnPropertyChanged("Password");
                 }
-               
+                
             }
         }
         private string GetHash(string input)
@@ -183,55 +183,75 @@ namespace MyProject.Registration
                 return _register ??
                     (_register = new RelayCommand(obj =>
                     {
-                        if (Name != null && Surname != null && Password != null && PasswordConfirm != null && Email != null && Bday != null && PasswordConfirm.Equals(Password))
+                        if (Name != null && Surname != null && Password != null && PasswordConfirm != null && Email != null && Bday != null )
                         {
-                            SqlConnection connection = new SqlConnection(Properties.Settings.Default.Connection);
-                            try
+                            if (PasswordConfirm.Equals(Password))
                             {
-                                connection.Open();
-                            }
-                             
-                            finally
-                            {
-                                using (SqlTransaction transaction = connection.BeginTransaction())
+                                SqlConnection connection = new SqlConnection(Properties.Settings.Default.Connection);
+                                try
                                 {
-                                    SqlCommand command = connection.CreateCommand();
-                                    command.Transaction = transaction;
-                                    try
-                                    {
-                                        string insert0 = $"insert into PACIENT VALUES( 1, '{Bday}', '{Name}' , '{Surname}' , '{Gender.ToString()}' , '{Email}', '{Image}')";
-                                        string insert1 = $"SELECT PACIENT.PACIENTID FROM PACIENT WHERE PACIENT.BIRTHDAY = '{Bday}' AND PACIENT.NAME='{Name}' " +
-                                        $"AND PACIENT.GENDER='{Gender}' AND PACIENT.EMAIL='{Email}' AND PACIENT.SURNAME='{Surname}'"; ;
-                                        string insert = $"insert into AUTINTIFICATION (PASSWORD, LOGIN, IDPACIENT) values ( '{Password}','{Email}', @ID)";
-                                        command.CommandText = insert0;
-                                        command.ExecuteNonQuery();
-                                        command.CommandText = insert1;
-                                        using (SqlDataReader reader = command.ExecuteReader())
-                                        {
-                                            if (reader.Read())
-                                            {
-                                                command.CommandText = insert;
-                                                SqlParameter parameter = new SqlParameter("@ID", reader.GetInt32(0));
-                                                command.Parameters.Add(parameter);
-                                                reader.Close();
-                                            }
-                                        }
-                                        command.ExecuteNonQuery();
-                                        Execute.Invoke();
-                                        transaction.Commit();
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        transaction.Rollback();
-                                    }
-                                    connection.Close();
-
+                                    connection.Open();
                                 }
+
+                                finally
+                                {
+                                    using (SqlTransaction transaction = connection.BeginTransaction())
+                                    {
+                                        SqlCommand command = connection.CreateCommand();
+                                        command.Transaction = transaction;
+                                        try
+                                        {
+                                            string insert0 = $"insert into PACIENT VALUES( 1, '{Bday}', '{Name}' , '{Surname}' , '{Gender.ToString()}' , '{Email}', '{Image}')";
+                                            string insert1 = $"SELECT PACIENT.PACIENTID FROM PACIENT WHERE PACIENT.BIRTHDAY = '{Bday}' AND PACIENT.NAME='{Name}' " +
+                                            $"AND PACIENT.GENDER='{Gender}' AND PACIENT.EMAIL='{Email}' AND PACIENT.SURNAME='{Surname}'";
+                                            string select = $"select * from AUTINTIFICATION WHERE LOGIN='{Email}'";
+                                            command.CommandText = select;
+                                            command.ExecuteNonQuery();
+
+                                            using (SqlDataReader reader1 = command.ExecuteReader())
+                                            {
+                                                if (!reader1.Read())
+                                                {
+                                                    string insert = $"insert into AUTINTIFICATION (PASSWORD, LOGIN, IDPACIENT) values ( '{Password}','{Email}', @ID)";
+                                                    command.CommandText = insert0;
+                                                    command.ExecuteNonQuery();
+                                                    command.CommandText = insert1;
+                                                    using (SqlDataReader reader = command.ExecuteReader())
+                                                    {
+                                                        if (reader.Read())
+                                                        {
+                                                            command.CommandText = insert;
+                                                            SqlParameter parameter = new SqlParameter("@ID", reader.GetInt32(0));
+                                                            command.Parameters.Add(parameter);
+                                                            reader.Close();
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                    MessageBox.Show("Пользователь с такой почтой уже существует");
+                                            }
+                                                command.ExecuteNonQuery();
+                                                Execute.Invoke();
+                                            
+                                            transaction.Commit();
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            transaction.Rollback();
+                                        }
+                                        connection.Close();
+                                    }
+                                }
+                               
                             }
+                            else
+                                MessageBox.Show("Пароли не совпадают");
+
+
 
                         }
                         else
-                            MessageBox.Show("Пароль должен состоять из");
+                            MessageBox.Show("Проверьте введённые данные");
                     }));
             }
         }

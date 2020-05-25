@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MyProject.User;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
@@ -105,14 +107,82 @@ namespace MyProject.Doctor
                 OnPropertyChanged("Surname");
             }
         }
-        private void LoadVisits()
+        public int IdVisit { get;  set; }
+        
+        private string _treatmrnt;
+        public string Treatment
         {
+            get
+            {
+                return _treatmrnt;
+            }
+            set
+            {
+                _treatmrnt = value;
+                SqlConnection connection= new SqlConnection(MyProject.Properties.Settings.Default.Connection);
+                try
+                {
+                    connection.Open();
+                }
+                finally
+                {
+                    
+                    string update = $"update VISIT SET TREATMENT='{Treatment}' WHERE VISITID={IdVisit} ";
+                    SqlCommand command = new SqlCommand(update, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                OnPropertyChanged("Treatment");
 
+            }
         }
+        private string _diagnose;
+        public string Diagnose
+        {
+            get
+            {
+                return _diagnose;
+            }
+            set
+            {
+                _diagnose = value;
+                SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);
+                try
+                {
+                    connection.Open();
+                }
+                finally
+                {
 
+                    string update = $"update VISIT SET DIAGNOSIS='{Diagnose}' WHERE VISITID={IdVisit} ";
+                    SqlCommand command = new SqlCommand(update, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                OnPropertyChanged("Diagnose");
+
+            }
+        }
+        public DoctorWindow _doctorWindow;
+        private Doctor _doctor;
+        public Doctor Visits
+        {
+            get
+            {
+                return _doctor;
+            }
+            set
+            {
+                _doctor = value;
+                OnPropertyChanged("Visits");
+            }
+        }
+        
+        public Doctor() { }
         public Doctor(int id)
         {
             CreateNewDoctor(id);
+            
         }
         private void CreateNewDoctor(int id)
         {
@@ -132,8 +202,6 @@ namespace MyProject.Doctor
                         Name= reader.GetString(2);
                         Specialization = reader.GetString(3);
                         Room = reader.GetInt32(5);
-
-
                     }
 
                 }

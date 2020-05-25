@@ -124,7 +124,6 @@
     <Compile Include="User\User.cs" />
     <Compile Include="User\UserViewModel.cs" />
     <Compile Include="User\Visit.cs" />
-    <Compile Include="User\VisitVM.cs" />
     <Page Include="AddDoctor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,6 +1,7 @@
 ﻿using MyProject.Autentification;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.IO;
@@ -14,7 +15,23 @@ namespace MyProject.User
 {
     public class User : INotifyPropertyChanged
     {
+        
+        private string _docName;
+
+        public string DocName
+        {
+            get
+            {
+                return _docName;
+            }
+            set
+            {
+                _docName = value;
+                OnPropertyChanged("DocName");
+            }
+        }
         public int id { get; private set; }
+
         private string _name;
         public string Name
         {
@@ -59,11 +76,69 @@ namespace MyProject.User
                 OnPropertyChanged("Email");
             }
         }
+        private DateTime _dateVisit;
+        public DateTime DateVisit
+        {
+            get
+            {
+                return _dateVisit;
+            }
+            set
+            {
+                _dateVisit = value;
+                OnPropertyChanged("DateVisit");
+            }
+        }
+        private TimeSpan _timeVisit;
+        public TimeSpan TimeVisit
+        {
+            get
+            {
+                return _timeVisit;
+            }
+            set
+            {
+                _timeVisit = value;
+                OnPropertyChanged("TimeVisit");
+            }
+        }
+        private string _treatmrnt;
+        public string Treatment
+        {
+            get
+            {
+                return _treatmrnt;
+            }
+            set
+            {
+                _treatmrnt = value;
+                OnPropertyChanged("Treatment");
+
+            }
+        }
+        private string _diagnose;
+        public string Diagnose
+        {
+            get
+            {
+                return _diagnose;
+            }
+            set
+            {
+                _diagnose = value;
+                OnPropertyChanged("Diagnose");
+
+            }
+        }
+       
         public User(int id)
         {
             this.id = id;
             CreateNewUser(id);
+           
         }
+        public User() { }
+     
         private void CreateNewUser(int id)
         {
             SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);
@@ -81,20 +156,19 @@ namespace MyProject.User
                     {
                         Name = reader.GetString(3);
                         Surname = reader.GetString(4);
-                        Email = reader.GetString(5);
+                        Email = reader.GetString(6);
                         if (reader.GetString(7) == "")
                         {
                             Image = new BitmapImage(new Uri(@"file:///D:/4 семестр/ООП/Курсовой проект/MyProject/Images/user.png"));
                         }
                         else
-                            Image = new BitmapImage(new Uri(reader.GetString(7)));
-                 
-                        
+                            Image = new BitmapImage(new Uri(reader.GetString(7))); 
                     }
 
                 }
             }
         }
+       
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

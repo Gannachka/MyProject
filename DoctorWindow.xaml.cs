@@ -23,6 +23,7 @@ namespace MyProject
         public DoctorWindow(MainWindow mainWindow, int ID)
         {
             DataContext = new DoctorViewModel(ID);
+
             InitializeComponent();
         }
     }

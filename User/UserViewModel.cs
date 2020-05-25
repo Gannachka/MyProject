@@ -17,8 +17,9 @@ namespace MyProject.User
     public class UserViewModel:INotifyPropertyChanged
     {
         public Make_appointment make;
-
         public Dictionary<string, int> Doctors = new Dictionary<string, int>();
+        public ObservableCollection<User> VISITS { get; set; } = new ObservableCollection<User>();
+
         private Visit _visit;
         public Visit Visit
         {
@@ -46,10 +47,24 @@ namespace MyProject.User
                 OnPropertyChanged("User");
             }
         }
+        private User _User;
+        public User USER
+        {
+            get
+            {
+                return _User;
+            }
+            set
+            {
+                _User = value;
+                OnPropertyChanged("USER");
+            }
+        }
 
        public UserViewModel(int id)
         {
             User = new User(id);
+            LoadVisits(id);
         }
 
         public void ChangeDoctor()
@@ -75,6 +90,42 @@ namespace MyProject.User
                     }
                 }
             }
+        }
+        private void LoadVisits(int id)
+        {
+            SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);
+            try
+            {
+                connection.Open();
+            }
+            finally
+            {
+
+                string select1 = $"select * FROM DOCTOR INNER JOIN (SELECT * FROM VISIT INNER JOIN PACIENT  ON VISIT.IDPACIENT=PACIENT.PACIENTID WHERE PACIENT.PACIENTID={id}) VISITS ON VISITS.IDDOCTOR=DOCTOR.DOCTORID";
+                SqlCommand command = new SqlCommand(select1, connection);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        User user = new User();
+                        user.DocName = reader.GetString(2);
+                        user.DateVisit = reader.GetDateTime(9);
+                        user.TimeVisit = reader.GetTimeSpan(10);
+                        if (!reader.IsDBNull(11))
+                        {
+                            user.Diagnose = reader.GetString(11);
+                        }
+                      
+                        if (!reader.IsDBNull(12))
+                        {
+                            user.Treatment = reader.GetString(12);
+                        }
+                        VISITS.Add(user);
+                    }
+                }
+                connection.Close();
+            }
+
         }
         public void ChangeSpecialisation()
         {

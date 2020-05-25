@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace MyProject.User
 {
     public class Visit:INotifyPropertyChanged
     {
+
        
         private string _docName;
+
         public string DocName
         {
             get
@@ -36,6 +39,19 @@ namespace MyProject.User
             {
                 _docSpecialization = value;
                 OnPropertyChanged("DocSpesialization");
+            }
+        }
+        private int _room;
+        public int Room
+        {
+            get
+            {
+                return _room;
+            }
+            set
+            {
+                _room = value;
+                OnPropertyChanged("Room");
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -65,6 +81,43 @@ namespace MyProject.User
                 OnPropertyChanged("TimeVisit");
             }
         }
+        private string _treatmrnt;
+        public string Treatment
+        {
+            get
+            {
+                return _treatmrnt;
+            }
+            set
+            {
+                _treatmrnt = value;
+              OnPropertyChanged("Treatment");
+
+            }
+        }
+        private string _diagnose;
+        public string Diagnose
+        {
+            get
+            {
+                return _diagnose;
+            }
+            set
+            {
+                _diagnose = value;
+                OnPropertyChanged("Diagnose");
+
+            }
+        }
+        private int id;
+
+       
+        public Visit()
+        {
+        }
+
+    
+       
         public void AddNewVisit(int id, int doctorid)
         {
             SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);

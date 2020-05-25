@@ -20,16 +20,23 @@ namespace MyProject.Autentification
             }
             set
             {
-                _password = GetHash(value);
-                OnPropertyChanged("Password");
+                if (value.Length > 7)
+                {
+                    _password = GetHash(value);
+                    OnPropertyChanged("Password");
+                }
+
+                
             }
         }
         private string GetHash(string input)
         {
-            var md5 = MD5.Create();
-            var hash = md5.ComputeHash(Convert.FromBase64String(input));
+            
+                var md5 = MD5.Create();
+                var hash = md5.ComputeHash(Convert.FromBase64String(input));
 
-            return Convert.ToBase64String(hash);
+                return Convert.ToBase64String(hash);
+           
         }
         private string _login;
         public string Login

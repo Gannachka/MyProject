@@ -56,15 +56,13 @@
                 <Label Content="{Binding Surname}" DataContext="{Binding User}"  Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4" />
                 <Label Content="{Binding Email}" DataContext="{Binding User}" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" />
                 <Button Content="Записаться" Command="{Binding MakeApp}" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="4" />
-                <Button Content="Выход" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="4" />
 
             </Grid>
 
         </StackPanel>
-        <TabControl Grid.ColumnSpan="2" Grid.Column="2">
-            <TabItem Header="История" Background="#e7fdfd" Width="100"  >
-
-                <Grid>
+        <StackPanel Grid.ColumnSpan="2" Grid.Column="2">
+           
+                <Grid Height="538" Margin="0,0,0.4,0">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -103,83 +101,19 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Медицинская карта" Grid.Column="4" Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="2" Foreground="#207676"   FontWeight="ExtraBold" FontStretch="UltraCondensed" Grid.Row="0" />
-                    <ListView Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="12" Background="WhiteSmoke" >
-                        <ListView.View >
-                            <GridView AllowsColumnReorder="True" >
-                                <GridViewColumn Header="Дата приёма"/>
-                                <GridViewColumn Header="Ф.И.О врача"/>
-                                <GridViewColumn Header="Диагноз"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Label Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="6" Background="#62b6b5" HorizontalContentAlignment="Center" Content="Лечение"/>
-                    <TextBlock Grid.Row="4" Grid.Column="7"   Grid.ColumnSpan="6" Grid.RowSpan="11" Background="WhiteSmoke" />
-                    <Button Content="Подробнее" Grid.Column="5" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="3" BorderBrush="#FFBF89" BorderThickness="3">
-                        <Button.Effect>
-                            <DropShadowEffect/>
-                        </Button.Effect>
-                    </Button>
-                </Grid>
 
-            </TabItem>
-            <TabItem Header="Медицинская&#xD;&#xA;карта" Background="#e7fdfd" Width="100"  TextOptions.TextHintingMode="Animated" >
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="41.6"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Медицинская карта" Grid.Column="4" Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="2" Foreground="#207676"   FontWeight="ExtraBold" FontStretch="UltraCondensed" Grid.Row="0" />
-                    <ListView Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="12" Background="WhiteSmoke" >
-                        <ListView.View >
-                            <GridView AllowsColumnReorder="True" >
-                                <GridViewColumn Header="Дата приёма"/>
-                                <GridViewColumn Header="Ф.И.О врача"/>
-                                <GridViewColumn Header="Диагноз"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Label Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="6" Background="#62b6b5" HorizontalContentAlignment="Center" Content="Лечение"/>
-                    <TextBlock Grid.Row="4" Grid.Column="7"   Grid.ColumnSpan="6" Grid.RowSpan="11" Background="WhiteSmoke" />
-
-                </Grid>
-
-            </TabItem>
-            <TextBlock Height="100" TextWrapping="Wrap" Text="TextBlock" Width="100"/>
-        </TabControl>
+                <DataGrid Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="12" AutoGenerateColumns="False" HeadersVisibility="Column"  SelectedItem="{Binding USER}"  ItemsSource="{Binding VISITS}" Grid.RowSpan="6" Background="WhiteSmoke" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=DateVisit, UpdateSourceTrigger=PropertyChanged}"    Header="Дата приёма" Width="100"/>
+                        <DataGridTextColumn Binding="{Binding Path=TimeVisit,  StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}" Header="Время приёма" Width="100"/>
+                         <DataGridTextColumn Binding="{Binding Path=DocName, UpdateSourceTrigger=PropertyChanged}" Header="Ф.И.О врача" Width="Auto"/>
+                         <DataGridTextColumn Binding="{Binding Path=Diagnose, UpdateSourceTrigger=PropertyChanged}" Header="Диагноз"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="12" Background="#62b6b5" HorizontalContentAlignment="Center" Content="Лечение"/>
+                <TextBlock Grid.Row="11" Text="{Binding Path=Treatment}" DataContext="{Binding USER}" Grid.Column="1"  Grid.ColumnSpan="12" Grid.RowSpan="7" Background="WhiteSmoke" />
+            </Grid>
+        </StackPanel>
     </Grid>
 
 </Window>

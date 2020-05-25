@@ -75,6 +75,8 @@ namespace MyProject.Autentification
                                     else
                                         MessageBox.Show("Введён неправильный пароль");
                                 }
+                                else
+                                MessageBox.Show("Проверьте введённые данные");
                             }
                         
                     }));
