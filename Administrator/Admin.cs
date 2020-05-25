@@ -285,6 +285,7 @@ namespace MyProject.Administrator
             }
             finally
             {
+
                 string delete1 = $"delete from AUTINTIFICATION where IDDOCTOR={IDdoctor}";
                 SqlCommand command1 = new SqlCommand(delete1, connection);
                 command1.ExecuteNonQuery();

@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Doctor\Doctor.cs" />
     <Compile Include="Doctor\DoctorViewModel.cs" />
+    <Compile Include="Doctor\Timetable.cs" />
     <Compile Include="EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
@@ -225,6 +226,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Search.png" />
+    <Resource Include="Images\left.png" />
+    <Resource Include="Images\right.png" />
+    <Resource Include="Images\leftscroll.png" />
+    <Resource Include="Images\rightScroll.png" />
     <Content Include="SQLQuery2.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

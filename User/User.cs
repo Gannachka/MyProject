@@ -46,6 +46,20 @@ namespace MyProject.User
                 OnPropertyChanged("Name");
             }
         }
+        private int _room;
+        public int Room
+        {
+            get
+            {
+                return _room;
+            }
+            set
+            {
+                _room = value;
+
+                OnPropertyChanged("Room");
+            }
+        }
         private string _sername;
         public string Surname
         {
@@ -168,7 +182,10 @@ namespace MyProject.User
                 }
             }
         }
-       
+        public override string ToString()
+        {
+            return "";
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

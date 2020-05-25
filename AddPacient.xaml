@@ -48,7 +48,7 @@
         <Border Grid.Column="2" Grid.ColumnSpan="10" Grid.RowSpan="16" Background="#a1e5e4" Margin="0,31,0,10"/>
         <Border  Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="10" Grid.RowSpan="3" Background="#62b6b5" ></Border>
         <Image Source="Images/logo.png" Grid.ColumnSpan="5" Margin="10.36,-23,55.64,4.6" Grid.RowSpan="4" Grid.Column="2"/>
-        <WrapPanel Orientation="Vertical" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="9" Grid.RowSpan="12"  HorizontalAlignment="Left" Margin="0.2,4.6,0,31.8" Width="469" >
+        <WrapPanel Orientation="Vertical" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="9" Grid.RowSpan="12"  HorizontalAlignment="Left"  Width="469" >
             <Label  HorizontalContentAlignment="Left" FontSize="16" FontFamily="Yu Gothic UI Semilight" Margin="10,0,0,0" MinHeight="32" MinWidth="158"  Content="Фамилия" />
             <TextBox Margin="10,0,0,0" DataContext="{Binding AddP}" Text="{Binding Path=Surname,UpdateSourceTrigger=PropertyChanged}" MinHeight="29"/>
             <Label  HorizontalContentAlignment="Left" FontSize="16" FontFamily="Yu Gothic UI Semilight" Margin="10,0,0,0" Content="Имя" />
@@ -56,7 +56,7 @@
             <Label  HorizontalContentAlignment="Left"  FontSize="16" FontFamily="Yu Gothic UI Semilight" Margin="10,0,0,0"  Content="E-mail" />
             <TextBox Margin="10,0,0,0" Text="{Binding Path=Email}" DataContext="{Binding AddP}"  MinHeight="29"/>
             <Label  HorizontalContentAlignment="Left" FontSize="16" FontFamily="Yu Gothic UI Semilight" Margin="10,0,0,0"  Content="Пароль" Width="172" />
-            <PasswordBox x:Name="AuthenticationPassBox"  Margin="10,0,0,0" MinHeight="29">
+            <PasswordBox x:Name="AuthenticationPassBox"  Margin="10,0,0,0" MinHeight="29" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
                         <i:InvokeCommandAction Command="{Binding PassChanged1}"/>
@@ -69,23 +69,23 @@
                 <RadioButton Content="ж" Command="{Binding Genderchecked}"  CommandParameter="ж"/>
 
             </StackPanel>
-            <Label  HorizontalContentAlignment="Center" FontSize="16"  FontFamily="Yu Gothic UI Semilight" MinHeight="32" MinWidth="158"  Content="День рождения" Width="206" />
+            <Label  HorizontalContentAlignment="Center" FontSize="16" Margin="0,22" FontFamily="Yu Gothic UI Semilight" MinHeight="32" MinWidth="158"  Content="День рождения" Width="206" />
 
-            <Calendar  x:Name="BDAY" Margin="80,0,30,30" >
+            <Calendar  x:Name="BDAY" Margin="80,0,30,18" DisplayDateEnd="2020-05-26" >
                 <i:Interaction.Triggers >
                     <i:EventTrigger EventName="SelectedDatesChanged" >
                         <i:InvokeCommandAction Command="{Binding DateSelect}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Calendar>
-            <Button Content="Добавить фото" Command="{Binding  AddPicture}"  Margin="55,0,0,10"  Width="164" Height="30">
+            <Button Content="Добавить фото" Command="{Binding  AddPicture}"  Margin="55,0,0,0"  Width="164" Height="30">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>
             </Button>
 
 
-            <Button Content="Добавить" Command="{Binding AddNew}" CommandParameter="{Binding AddP}" Height="60" Width="158" Margin="60,4,0,0" Background="#FF8989"  BorderThickness="4" BorderBrush="#A62D2D" FontSize="14" FontStyle="Italic" Focusable="False"  FontWeight="SemiBold">
+            <Button Content="Добавить" Command="{Binding AddNew}" CommandParameter="{Binding AddP}" Height="60" Width="158" Margin="60,10,0,0" Background="#FF8989"  BorderThickness="4" BorderBrush="#A62D2D" FontSize="14" FontStyle="Italic" Focusable="False"  FontWeight="SemiBold">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>

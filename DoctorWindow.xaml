@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyProject"
         mc:Ignorable="d"
-        Title="DoctorWindow"  Height="570" Width="800"   >
+        Title="DoctorWindow"  Height="570" Width="800" Closing="Window_Closing"  >
     <Window.Background >
 
         <ImageBrush  ImageSource="Images/fon2.png"/>
@@ -46,15 +46,50 @@
                     <RowDefinition/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
+                <Button  x:Name="Left" Grid.Row="15" DataContext="{Binding}"  BorderBrush="{x:Null}" Command="{Binding Left}">
+                  <Button.Background>
+                        <ImageBrush ImageSource="Images\leftscroll.png"/>
+                    </Button.Background>
+                </Button>
+                <Button  x:Name="Right" Grid.Row="15" Grid.Column="5" DataContext="{Binding}"  BorderBrush="{x:Null}" Command="{Binding Right}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images\rightScroll.png"/>
+                    </Button.Background>
+                </Button>
                 <Image Source="Images/logo.png"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="6"/>
-                <Ellipse Grid.Column="0" Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="6" Margin="31,27.4,30.2,10.4" >
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Images/user.png" Stretch="UniformToFill"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Label Content="{Binding Name}" DataContext="{Binding Doctor}" Grid.Row="7" Grid.ColumnSpan="6" Margin="31,28.6,30.2,0" Grid.RowSpan="3" />
-                <Label Content="{Binding Specialization}" DataContext="{Binding Doctor}" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" />
-                <Label Content="{Binding Room}" DataContext="{Binding Doctor}" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="4" />
+                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" DataContext="{Binding Doctor}" FontSize="20" Foreground="#207676" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4"  Grid.RowSpan="3" />
+                <TextBlock Text="{Binding Specialization}" TextWrapping="Wrap" DataContext="{Binding Doctor}" FontSize="15" Foreground="#207676" Grid.Row="7" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4" />
+                <Label Content="{Binding Room}" DataContext="{Binding Doctor}" FontSize="15" Foreground="#207676" Grid.Row="9" Grid.Column="1"  Grid.ColumnSpan="4" />
+                <TextBlock TextWrapping="Wrap" Text="{Binding Doctor}" DataContext="{Binding Timetable}"  Foreground="#207676" Grid.Row="11" Grid.RowSpan="1"  Grid.Column="1" Grid.ColumnSpan="4" />
+                <Label Content="{Binding Room}" DataContext="{Binding Timetable}" Foreground="#207676" Grid.Row="12"  Grid.Column="1" Grid.ColumnSpan="4" />
+                <Border  Grid.Row="13"  Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="5">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="31*" />
+                            <ColumnDefinition Width="91*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                       
+                        <TextBlock Text="Пн." Foreground="#207679" FontSize="16" Grid.ColumnSpan="2" Margin="0,0,69.02,28.6" Grid.RowSpan="2"  />
+                        <TextBlock Text="{Binding Mon}" DataContext="{Binding Timetable}" Foreground="#207679" FontSize="16" Grid.ColumnSpan="2"  Grid.RowSpan="3" Grid.Column="1" />
+                        <TextBlock Text="Вт." Grid.Row="1" FontSize="16"  Foreground="#207679" Grid.ColumnSpan="2" Grid.RowSpan="3"   />
+                        <TextBlock Text="{Binding Tues}" DataContext="{Binding Timetable}" Foreground="#207679"  Grid.Column="1" Grid.Row="1" FontSize="16" />
+                        <TextBlock Text="Ср." Grid.Row="2"  Foreground="#207679" FontSize="16" Grid.ColumnSpan="2"  Grid.RowSpan="3"  />
+                        <TextBlock Text="{Binding Wed}" DataContext="{Binding Timetable}"  Grid.Column="1" Grid.Row="2"  Foreground="#207679" FontSize="16" />
+                        <TextBlock Text="Чт." Grid.Row="3" Foreground="#207679" FontSize="16" Grid.ColumnSpan="2"    />
+                        <TextBlock Text="{Binding Thurs}" DataContext="{Binding Timetable}" Grid.Column="1" Grid.Row="3" Foreground="#207679" FontSize="16"  />
+                        <TextBlock Text="Пт." Grid.Row="4" Foreground="#207679" FontSize="16" Grid.ColumnSpan="2"  Grid.RowSpan="2"/>
+                        <TextBlock Text="{Binding Fri}" DataContext="{Binding Timetable}" Grid.Column="1" Grid.Row="4" Foreground="#207679" FontSize="16" Grid.ColumnSpan="2"  Grid.RowSpan="3"  />
+
+                    </Grid>
+                </Border>
+
 
             </Grid>
 
@@ -110,7 +145,7 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
                 <Label Grid.Row="11" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="4"   FontFamily="Gabriola" FontSize="25" HorizontalAlignment="Center" Content="Диагноз"  Foreground="#207676" FontWeight="ExtraBold" FontStretch="UltraCondensed" Margin="0,20,40.4,28.067" Width="134"  />
 
                 <TextBox Grid.Row="13" Text="{Binding Diagnose, UpdateSourceTrigger=PropertyChanged}"  DataContext="{Binding DOCTOR}" TextWrapping="Wrap" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="5" BorderBrush="#207676" />

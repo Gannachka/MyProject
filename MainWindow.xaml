@@ -10,7 +10,7 @@
         <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Height="243"  >
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" DataContext="{Binding SelectedUserAuthentication}">
                 <Label HorizontalAlignment="Center" Content="Login/ E-mail"/>
-                <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox x:Name="Login" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label HorizontalAlignment="Center" Content="Password"/>
                 <PasswordBox x:Name="AuthenticationPassBox"/>
             </StackPanel>

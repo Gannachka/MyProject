@@ -65,8 +65,16 @@ namespace MyProject.Administrator
                        Admin pacient = obj as Admin;
                         if (pacient != null)
                         {
-                            pacient.DeletePacient();
-                            PACIENT.Remove(pacient);
+                            if (_adminWindow.PacientDataGrid.SelectedItems.Count != 1)
+                            {
+                                MessageBox.Show("Выберете один элемент");
+                            }
+                            else
+                            {
+                                pacient.DeletePacient();
+                                PACIENT.Remove(pacient);
+                            }
+                               
                         }
                     }));
             }
@@ -82,8 +90,16 @@ namespace MyProject.Administrator
                         Admin doctor = obj as Admin;
                         if (doctor != null)
                         {
-                            doctor.DeleteDoctor(); 
-                            DOCTOR.Remove(doctor);
+                            if (_adminWindow.DoctorDataGrid.SelectedItems.Count !=1) 
+                            {
+                                MessageBox.Show("Выберете один элемент");
+                            }
+                            else
+                            {
+                                doctor.DeleteDoctor();
+                                DOCTOR.Remove(doctor);
+                            }
+                            
                         }
                     }));
             }

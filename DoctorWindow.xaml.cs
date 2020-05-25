@@ -20,11 +20,17 @@ namespace MyProject
     /// </summary>
     public partial class DoctorWindow : Window
     {
+        public MainWindow _mainWindow;
         public DoctorWindow(MainWindow mainWindow, int ID)
         {
             DataContext = new DoctorViewModel(ID);
+            _mainWindow = mainWindow;       
 
             InitializeComponent();
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _mainWindow.Show();
         }
     }
 }

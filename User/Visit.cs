@@ -110,7 +110,7 @@ namespace MyProject.User
             }
         }
         private int id;
-
+       
        
         public Visit()
         {

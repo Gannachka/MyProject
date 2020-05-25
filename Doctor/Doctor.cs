@@ -54,6 +54,33 @@ namespace MyProject.Doctor
                 OnPropertyChanged("Room");
             }
         }
+        private TimeSpan _timeStart;
+        public TimeSpan TimeStart
+        {
+            get
+            {
+                return _timeStart;
+            }
+            set
+            {
+                _timeStart = value;
+                OnPropertyChanged("DayStart");
+            }
+        }
+        private TimeSpan _timeEnd;
+
+        public TimeSpan TimeEnd
+        {
+            get
+            {
+                return _timeEnd;
+            }
+            set
+            {
+                _timeEnd = value;
+                OnPropertyChanged("TimeEnd");
+            }
+        }
         private DateTime _dateVisit;
         public DateTime DataVisit
         {

@@ -46,7 +46,7 @@
                     <RowDefinition/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Image Source="Images/logo.png"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="6"/>
+                <Image Source="Images/logo.png"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"  Grid.ColumnSpan="6"/>
                 <Ellipse Grid.Column="0" Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="6" Margin="31,27.4,30.2,10.4" >
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="Images/user.png" Stretch="UniformToFill"/>
@@ -72,7 +72,7 @@
 
         </StackPanel>
         <TabControl Grid.Column="1"  >
-            <TabItem Header="Пациенты" Background="#e7fdfd" Width="100" Margin="0,0,0,-29" >
+            <TabItem Header="Пациенты" Background="#e7fdfd" Width="100"  >
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -114,7 +114,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Пациенты" Grid.Column="5 " Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="3" Foreground="#207676" Background="White" VerticalAlignment="Bottom" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
 
-                    <DataGrid CanUserAddRows="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding PACIENT}"  SelectedItem="{Binding SelectedUser}"  Background="#FFD8ECF9" >
+                    <DataGrid Name="PacientDataGrid" CanUserAddRows="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding PACIENT}"  SelectedItem="{Binding SelectedUser}"  Background="#FFD8ECF9" >
 
                         <DataGrid.Columns >
                             <DataGridTextColumn Header="Id" Binding="{Binding Path= IDpacient, UpdateSourceTrigger=PropertyChanged}"/>
@@ -132,7 +132,7 @@
                             <DropShadowEffect/>
                         </Button.Effect>
                     </Button>
-                    <Button Content="Добавить" Grid.Column="8" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="4" CommandParameter="{Binding SelectedUser}" Command="{Binding Add}" BorderBrush="#FFBF89" BorderThickness="3" MinHeight="26"  VerticalAlignment="Bottom">
+                    <Button Content="Добавить" Grid.Column="8" Grid.Row="16" Background="WhiteSmoke" Grid.ColumnSpan="4" CommandParameter="{Binding SelectedUser}" Command="{Binding Add}" BorderBrush="#FFBF89" BorderThickness="3"  >
                         <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
@@ -140,7 +140,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Врачи" Background="#e7fdfd" Width="100" Margin="0,0,0,-29" >
+            <TabItem Header="Врачи" Background="#e7fdfd" Width="100"  >
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -182,7 +182,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Врачи" Grid.Column="5 " Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="3" Foreground="#207676" Background="White" VerticalAlignment="Bottom" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
 
-                    <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding DOCTOR}" SelectedItem="{Binding SelectedUser}" Background="#FFD8ECF9" >
+                    <DataGrid Name="DoctorDataGrid" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="12"  AutoGenerateColumns="False" HeadersVisibility="Column"  ItemsSource="{Binding DOCTOR}" SelectedItem="{Binding SelectedUser}" Background="#FFD8ECF9" >
 
                         <DataGrid.Columns >
                             <DataGridTextColumn Header="Id" Binding="{Binding Path= IDdoctor, UpdateSourceTrigger=PropertyChanged}"/>

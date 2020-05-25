@@ -19,7 +19,8 @@ namespace MyProject.User
         public Make_appointment make;
         public Dictionary<string, int> Doctors = new Dictionary<string, int>();
         public ObservableCollection<User> VISITS { get; set; } = new ObservableCollection<User>();
-
+        public ObservableCollection<User> VISIT { get; set; } = new ObservableCollection<User>();
+        public UserWindow _userWindow;
         private Visit _visit;
         public Visit Visit
         {
@@ -33,6 +34,7 @@ namespace MyProject.User
                 OnPropertyChanged("Visit");
             }
         }
+      
 
         private User _user;
         public User User
@@ -60,11 +62,26 @@ namespace MyProject.User
                 OnPropertyChanged("USER");
             }
         }
+        private User _futureVisits;
+        public User FutureVisits
+        {
+            get
+            {
+                return _futureVisits;
+            }
+            set
+            {
+                _futureVisits = value;
+                OnPropertyChanged("FutureVisits");
+            }
+        }
 
-       public UserViewModel(int id)
+
+        public UserViewModel(int id)
         {
             User = new User(id);
             LoadVisits(id);
+            LoadFeautureVisits(id);
         }
 
         public void ChangeDoctor()
@@ -101,11 +118,12 @@ namespace MyProject.User
             finally
             {
 
-                string select1 = $"select * FROM DOCTOR INNER JOIN (SELECT * FROM VISIT INNER JOIN PACIENT  ON VISIT.IDPACIENT=PACIENT.PACIENTID WHERE PACIENT.PACIENTID={id}) VISITS ON VISITS.IDDOCTOR=DOCTOR.DOCTORID";
+                string select1 = $"select * FROM DOCTOR INNER JOIN (SELECT * FROM VISIT INNER JOIN PACIENT  ON VISIT.IDPACIENT=PACIENT.PACIENTID WHERE PACIENT.PACIENTID={id} AND VISIT.DATE <  CONVERT (date, SYSDATETIME())) VISITS ON VISITS.IDDOCTOR=DOCTOR.DOCTORID";
                 SqlCommand command = new SqlCommand(select1, connection);
+             
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.Read())
                     {
                         User user = new User();
                         user.DocName = reader.GetString(2);
@@ -120,10 +138,41 @@ namespace MyProject.User
                         {
                             user.Treatment = reader.GetString(12);
                         }
-                        VISITS.Add(user);
+                        VISITS.Add( user);
                     }
                 }
                 connection.Close();
+                  
+            }
+
+        }
+        private void LoadFeautureVisits(int id)
+        {
+            SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);
+            try
+            {
+                connection.Open();
+            }
+            finally
+            {
+
+                string select1 = $"select * FROM DOCTOR INNER JOIN (SELECT * FROM VISIT INNER JOIN PACIENT  ON VISIT.IDPACIENT=PACIENT.PACIENTID WHERE PACIENT.PACIENTID={id} AND VISIT.DATE >  CONVERT (date, SYSDATETIME())) VISITS ON VISITS.IDDOCTOR=DOCTOR.DOCTORID";
+                SqlCommand command = new SqlCommand(select1, connection);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        User FutureVisits = new User();
+                        FutureVisits.DocName = reader.GetString(2);
+                        FutureVisits.DateVisit = reader.GetDateTime(9);
+                        FutureVisits.TimeVisit = reader.GetTimeSpan(10);
+                        FutureVisits.Room = reader.GetInt32(5);
+                        VISIT.Add(FutureVisits);
+                
+                    }
+                }
+                connection.Close();
+                FutureVisits = VISIT[0];
             }
 
         }
@@ -248,6 +297,27 @@ namespace MyProject.User
                          MessageBox.Show("Данные не введены");
                      
                  }));
+            }
+        }
+        private RelayCommand _right;
+        public RelayCommand Right
+        {
+            get
+            {
+                return _right ??
+                    (_right = new RelayCommand(obj =>
+                    {
+                        int i = VISIT.IndexOf(FutureVisits);
+                        i++;
+                        if (i == VISIT.Count-1)
+                            FutureVisits = VISIT[0];
+                        else
+                            FutureVisits = VISIT[i];
+                    
+
+
+
+                    }));
             }
         }
 

@@ -26,43 +26,45 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition/>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition/>
-                    <RowDefinition />
+                    <RowDefinition Height="29*" />
+                    <RowDefinition Height="42*" />
+                    <RowDefinition Height="14*" />
+                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="29*" />
+                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="29*" />
+                    <RowDefinition Height="29*" />
+                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="28*" />
+                    <RowDefinition Height="29*" />
+                    <RowDefinition Height="29*"/>
+                    <RowDefinition Height="29*" />
+                    <RowDefinition Height="29*" />
+                    <RowDefinition Height="28*"/>
+                    <RowDefinition Height="28*" />
                 </Grid.RowDefinitions>
-                <Image Source="Images/logo.png"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="6"/>
-                <Ellipse Grid.Column="0" DataContext="{Binding User}" Grid.Row="2" Grid.RowSpan="6" Grid.ColumnSpan="6" Margin="31,31,31,31" >
+                <Image Source="Images/logo.png" Stretch="Fill" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="6" Margin="0,0,0.2,2.2"/>
+                <Ellipse Grid.Column="0" DataContext="{Binding User}" Grid.Row="3" Grid.RowSpan="4" Grid.ColumnSpan="5" Margin="31,8.4,0.8,2.4" >
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding Path=Image}"  Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Label Content="{Binding Name}" DataContext="{Binding User}" Grid.Row="8"  Grid.Column="1" Grid.ColumnSpan="4" />
-                <Label Content="{Binding Surname}" DataContext="{Binding User}"  Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4" />
-                <Label Content="{Binding Email}" DataContext="{Binding User}" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" />
-                <Button Content="Записаться" Command="{Binding MakeApp}" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="4" />
+                <TextBlock Text="{Binding Name}" DataContext="{Binding User}" TextWrapping="Wrap" FontSize="20" Grid.RowSpan="3"  Foreground="#207676" Grid.Row="6" Grid.ColumnSpan="6" Margin="31,27.6,30.2,0" />
+                <TextBlock Text="{Binding Surname}" DataContext="{Binding User}" TextWrapping="Wrap" FontSize="16" Foreground="#207676" Grid.Row="9" Grid.ColumnSpan="6" Margin="31,0,30.2,0" />
+                <TextBlock Text="{Binding Email}" DataContext="{Binding User}" TextWrapping="Wrap" FontSize="15" Foreground="#207676" Grid.Row="10" Grid.RowSpan="3" Grid.ColumnSpan="6" Margin="31,0,30.2,0" />
+                <Button Content="Записаться" Command="{Binding MakeApp}" Grid.Row="15" Grid.ColumnSpan="6" Margin="31,0.4,30.2,0.4" />
 
             </Grid>
 
         </StackPanel>
-        <StackPanel Grid.ColumnSpan="2" Grid.Column="2">
-           
-                <Grid Height="538" Margin="0,0,0.4,0">
+        <TabControl Grid.ColumnSpan="2" Grid.Column="2">
+
+            <TabItem Header="Медицинская карта"  Width="Auto" >
+
+                <Grid Margin="0,0,0.8,0">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -102,18 +104,105 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Медицинская карта" Grid.Column="4" Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="2" Foreground="#207676"   FontWeight="ExtraBold" FontStretch="UltraCondensed" Grid.Row="0" />
 
-                <DataGrid Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="12" AutoGenerateColumns="False" HeadersVisibility="Column"  SelectedItem="{Binding USER}"  ItemsSource="{Binding VISITS}" Grid.RowSpan="6" Background="WhiteSmoke" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=DateVisit, UpdateSourceTrigger=PropertyChanged}"    Header="Дата приёма" Width="100"/>
-                        <DataGridTextColumn Binding="{Binding Path=TimeVisit,  StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}" Header="Время приёма" Width="100"/>
-                         <DataGridTextColumn Binding="{Binding Path=DocName, UpdateSourceTrigger=PropertyChanged}" Header="Ф.И.О врача" Width="Auto"/>
-                         <DataGridTextColumn Binding="{Binding Path=Diagnose, UpdateSourceTrigger=PropertyChanged}" Header="Диагноз"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Label Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="12" Background="#62b6b5" HorizontalContentAlignment="Center" Content="Лечение"/>
-                <TextBlock Grid.Row="11" Text="{Binding Path=Treatment}" DataContext="{Binding USER}" Grid.Column="1"  Grid.ColumnSpan="12" Grid.RowSpan="7" Background="WhiteSmoke" />
-            </Grid>
-        </StackPanel>
+                    <DataGrid Grid.Row="3"  CanUserAddRows="False"   Grid.Column="1" Grid.ColumnSpan="12" AutoGenerateColumns="False" HeadersVisibility="Column"  SelectedItem="{Binding USER}"  ItemsSource="{Binding VISITS}" Grid.RowSpan="6" Background="WhiteSmoke" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=DateVisit, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}"    Header="Дата приёма" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding Path=TimeVisit,   UpdateSourceTrigger=PropertyChanged}" Header="Время приёма" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding Path=DocName, UpdateSourceTrigger=PropertyChanged}" Header="Ф.И.О врача" Width="Auto"/>
+                            <DataGridTextColumn Binding="{Binding Path=Diagnose, UpdateSourceTrigger=PropertyChanged}" Header="Диагноз"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="12" Background="#62b6b5" HorizontalContentAlignment="Center" Content="Лечение"/>
+                    <TextBlock Grid.Row="11" Text="{Binding Path=Treatment}" DataContext="{Binding USER}" Grid.Column="1"  Grid.ColumnSpan="12" Grid.RowSpan="7" Background="WhiteSmoke" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Талоны" Height="Auto" Width="100" >
+
+                <Grid Margin="0,0,0.8,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Предстоящие визиты" Grid.Column="4" Grid.ColumnSpan="7" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="3" Foreground="#207676"   FontWeight="ExtraBold" FontStretch="UltraCondensed" Grid.Row="0" Margin="0.2,0,0.2,28.6" />
+                    <TextBlock Grid.Row="3"  DataContext="{Binding  FutureVisits}"  FontSize="20" Name="Visit" Grid.Column="3" Background="AliceBlue" Grid.ColumnSpan="8" Grid.RowSpan="13"/>
+                    <Border  Grid.Row="3"  DataContext="{Binding  FutureVisits}"  Grid.Column="3" Grid.ColumnSpan="8" Grid.RowSpan="13"   BorderBrush="Aqua" BorderThickness="1" Padding="8">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="68*"/>
+                                <RowDefinition Height="68*"/>
+                                <RowDefinition Height="68*"/>
+                                <RowDefinition Height="68*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text=" Дата" FontSize="25" Grid.Column="0" Grid.Row="0" />
+                            <TextBlock Text="{Binding DateVisit, StringFormat={}{0:dd.MM.yyyy}}" FontSize="25" Grid.Column="1" Grid.Row="0" />
+                            <TextBlock Text=" Время" FontSize="25" Grid.Column="0" Grid.Row="1" />
+                            <TextBlock Text="{Binding TimeVisit}" FontSize="25" Grid.Column="1" Grid.Row="1" />
+                            <TextBlock Text="Ф.И.О. врача" FontSize="25" Grid.Column="0" Grid.Row="2" />
+                            <TextBlock Text="{Binding DocName}" TextWrapping="Wrap" FontSize="18" Grid.Column="1" Grid.Row="2" />
+                            <TextBlock Text="Кабинет" FontSize="25" Grid.Column="0" Grid.Row="3" />
+                            <TextBlock Text="{Binding Room}" FontSize="25" Grid.Column="1" Grid.Row="3" />
+
+
+                        </Grid>
+                    </Border>
+                    <Button  x:Name="Right" Grid.RowSpan="2"  Grid.Row="16" Grid.Column="8"  BorderBrush="{x:Null}" Command="{Binding Right}">
+                        <Button.Effect>
+                            <DropShadowEffect/>
+                        </Button.Effect>
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images\right.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button  x:Name="Left" Grid.RowSpan="2"  Grid.Row="16" Grid.Column="5" DataContext="{Binding}"  BorderBrush="{x:Null}" Command="{Binding left}">
+                        <Button.Effect>
+                            <DropShadowEffect/>
+                        </Button.Effect>
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images\left.png"/>
+                        </Button.Background>
+                    </Button>
+
+                </Grid>
+            </TabItem>
+
+        </TabControl>
     </Grid>
 
 </Window>
