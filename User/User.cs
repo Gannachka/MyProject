@@ -17,7 +17,6 @@ namespace MyProject.User
     {
         
         private string _docName;
-
         public string DocName
         {
             get
@@ -148,8 +147,7 @@ namespace MyProject.User
         public User(int id)
         {
             this.id = id;
-            CreateNewUser(id);
-           
+            CreateNewUser(id);           
         }
         public User() { }
      

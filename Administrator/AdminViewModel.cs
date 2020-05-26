@@ -65,14 +65,14 @@ namespace MyProject.Administrator
                        Admin pacient = obj as Admin;
                         if (pacient != null)
                         {
-                            if (_adminWindow.PacientDataGrid.SelectedItems.Count != 1)
+                            if (_adminWindow.PacientDataGrid.SelectedItems.Count != 1 || _adminWindow.PacientDataGrid.SelectedItems.Count ==0 )      
                             {
                                 MessageBox.Show("Выберете один элемент");
                             }
                             else
-                            {
+                            {                               
                                 pacient.DeletePacient();
-                                PACIENT.Remove(pacient);
+                                PACIENT.Remove(pacient);                                                             
                             }
                                
                         }
@@ -90,7 +90,7 @@ namespace MyProject.Administrator
                         Admin doctor = obj as Admin;
                         if (doctor != null)
                         {
-                            if (_adminWindow.DoctorDataGrid.SelectedItems.Count !=1) 
+                            if (_adminWindow.DoctorDataGrid.SelectedItems.Count !=1 || _adminWindow.DoctorDataGrid.SelectedItems.Count==0) 
                             {
                                 MessageBox.Show("Выберете один элемент");
                             }
@@ -171,8 +171,7 @@ namespace MyProject.Administrator
                     {
                         Admin admin = obj as Admin;
                         if (admin != null)
-                        {
-                            
+                        {                            
                             admin.AddNewDoctor();
                             DOCTOR.Add(admin);
                         }
@@ -220,7 +219,7 @@ namespace MyProject.Administrator
                         }
                         else
                         {
-                            AddP.Gender = Gender.Woman;
+                           AddP.Gender = Gender.Woman;
                         }
                     }));
             }
@@ -347,7 +346,6 @@ namespace MyProject.Administrator
                         doctors.Specialization = reader.GetString(3);
                         doctors.Experience =Convert.ToString(reader.GetValue(4));
                         doctors.Room = reader.GetInt32(5);
-
                         DOCTOR.Add(doctors);
                     }
 
@@ -363,8 +361,10 @@ namespace MyProject.Administrator
                 return _searchPacient ??
                     (_searchPacient = new RelayCommand(obj =>
                        {
+                           PACIENTS.Clear();
+                          
                            ShowPacient pacient = new ShowPacient(this);
-                           var search = from t in PACIENT where t.Surname == _adminWindow.SearchPacient.Text || t.Name == _adminWindow.SearchPacient.Text || Convert.ToString(t.IDpacient) == _adminWindow.SearchPacient.Text select t;
+                           var search = from t in PACIENT where t.Surname.Contains ( _adminWindow.SearchPacient.Text) || t.Name.Contains( _adminWindow.SearchPacient.Text) || Convert.ToString(t.IDpacient) == _adminWindow.SearchPacient.Text select t;
                            foreach (var item in search)
                            {
                                PACIENTS.Add(item);
@@ -382,8 +382,9 @@ namespace MyProject.Administrator
                 return _searchDoctor ??
                     (_searchDoctor = new RelayCommand(obj =>
                     {
+                        DOCTORS.Clear();
                         ShowDoctor pacient = new ShowDoctor(this);
-                        var search = from t in DOCTOR where t.Specialization == _adminWindow.SearchDoctor.Text || t.Doctor == _adminWindow.SearchDoctor.Text || Convert.ToString(t.IDdoctor) == _adminWindow.SearchDoctor.Text select t;
+                        var search = from t in DOCTOR where t.Specialization.Contains( _adminWindow.SearchDoctor.Text) || t.Doctor.Contains( _adminWindow.SearchDoctor.Text) || Convert.ToString(t.IDdoctor) == _adminWindow.SearchDoctor.Text select t;
                         foreach (var item in search)
                         {
                             DOCTORS.Add(item);

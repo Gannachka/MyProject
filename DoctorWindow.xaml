@@ -97,7 +97,7 @@
 
         <StackPanel Grid.Column="2"   >
 
-            <Grid Height="540" Margin="0,0,0,0" >
+            <Grid Height="540" >
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -136,22 +136,21 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Пациенты" Grid.Column="5 " Grid.ColumnSpan="4" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="2" Foreground="#207676" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
-                <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="8"  AutoGenerateColumns="False" HeadersVisibility="Column" CurrentItem="" SelectedItem="{Binding DOCTOR}" ItemsSource="{Binding VISIT}"  Background="#FFD8ECF9" >
+                <DataGrid  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="8" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="Column"  CurrentItem="" SelectedItem="{Binding DOCTOR}" ItemsSource="{Binding VISIT}"  Background="#FFD8ECF9" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=TimeVisit,  UpdateSourceTrigger=PropertyChanged}"  Header="Время приёма"/>
-                        <DataGridTextColumn Binding="{Binding Path=DataVisit, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}"  Header="Дата приёма"/>
-                        <DataGridTextColumn Binding="{Binding Path=Surname,  UpdateSourceTrigger=PropertyChanged}" Header="Фамилия пациента"/>
-                        <DataGridTextColumn Binding="{Binding Path=PacientName,  UpdateSourceTrigger=PropertyChanged}" Header="Имя пациента"/>
-
+                        <DataGridTextColumn Binding="{Binding Path=TimeVisit,  UpdateSourceTrigger=PropertyChanged}"  Header="Время приёма" Width="100"/>
+                        <DataGridTextColumn Binding="{Binding Path=DataVisit, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}" Width="100" Header="Дата приёма"/>
+                        <DataGridTextColumn Binding="{Binding Path=Surname,  UpdateSourceTrigger=PropertyChanged}" Header="Фамилия пациента" Width="138"/>
+                        <DataGridTextColumn Binding="{Binding Path=PacientName,  UpdateSourceTrigger=PropertyChanged}" Header="Имя пациента" Width="100"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
                 <Label Grid.Row="11" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="4"   FontFamily="Gabriola" FontSize="25" HorizontalAlignment="Center" Content="Диагноз"  Foreground="#207676" FontWeight="ExtraBold" FontStretch="UltraCondensed" Margin="0,20,40.4,28.067" Width="134"  />
 
-                <TextBox Grid.Row="13" Text="{Binding Diagnose, UpdateSourceTrigger=PropertyChanged}"  DataContext="{Binding DOCTOR}" TextWrapping="Wrap" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="5" BorderBrush="#207676" />
+                <TextBox Grid.Row="13" Text="{Binding Diagnose, UpdateSourceTrigger=PropertyChanged}" MaxLength="499" DataContext="{Binding DOCTOR}" SpellCheck.IsEnabled="True" Language="ru-ru" TextWrapping="Wrap" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="5" BorderBrush="#207676" />
 
                 <Label Grid.Row="11" Grid.Column="8" Grid.RowSpan="2" Grid.ColumnSpan="3"   FontFamily="Gabriola" FontSize="25" HorizontalAlignment="Center" Content="Лечение"  Foreground="#207676" FontWeight="ExtraBold" FontStretch="UltraCondensed" Margin="25.2,20,26,0"  />
-                <TextBox Grid.Row="13" Text="{Binding Treatment, UpdateSourceTrigger=PropertyChanged}" BorderBrush="#207676"  DataContext="{Binding DOCTOR}" Grid.Column="7" TextWrapping="Wrap" Grid.RowSpan="5" Grid.ColumnSpan="6" />
+                <TextBox Grid.Row="13" Text="{Binding Treatment, UpdateSourceTrigger=PropertyChanged}" BorderBrush="#207676" SpellCheck.IsEnabled="True" Language="ru-ru"  MaxLength="499" DataContext="{Binding DOCTOR}" Grid.Column="7" TextWrapping="Wrap" Grid.RowSpan="5" Grid.ColumnSpan="6" />
 
 
             </Grid>

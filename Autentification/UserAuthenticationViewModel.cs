@@ -18,8 +18,7 @@ namespace MyProject.Autentification
     class UserAuthenticationViewModel : INotifyPropertyChanged
     {
         private MainWindow _mainWindow;
-        private UserAuthetification _selectedUserAuthentication;
-       
+        private UserAuthetification _selectedUserAuthentication;       
         public UserAuthetification SelectedUserAuthentication
         {
             get
@@ -47,7 +46,7 @@ namespace MyProject.Autentification
                        
                             string select = $" select IDDOCTOR, IDPACIENT, IDADMIN FROM AUTINTIFICATION WHERE LOGIN='{user.Login}' AND PASSWORD='{user.Password}'";
                             SqlCommand sqlCommand = new SqlCommand(select, connection);
-                        connection.Open();
+                            connection.Open();
                             using (SqlDataReader reader = sqlCommand.ExecuteReader())
                             {
                                 if (reader.Read())
@@ -57,26 +56,24 @@ namespace MyProject.Autentification
                                         DoctorWindow doctorWindow = new DoctorWindow(_mainWindow, reader.GetInt32(0));
                                         _mainWindow.Hide();
                                         doctorWindow.Show();
-                                    _mainWindow.AuthenticationPassBox.Clear();
-                                    _mainWindow.Login.Clear();
-                                    
+                                        _mainWindow.AuthenticationPassBox.Clear();
+                                        _mainWindow.Login.Clear();                                    
                                     }
                                     else if (!reader.IsDBNull(1))
                                     {
                                         UserWindow userWindow = new UserWindow(_mainWindow, reader.GetInt32(1));
                                         _mainWindow.Hide();
-                                       userWindow.Show();
-                                    _mainWindow.AuthenticationPassBox.Clear();
-                                    _mainWindow.Login.Clear();
-
+                                        userWindow.Show();
+                                        _mainWindow.AuthenticationPassBox.Clear();
+                                        _mainWindow.Login.Clear();
                                 }
                                     else if (!reader.IsDBNull(2))
                                     {
                                         AdminWindow adminWindow = new AdminWindow(_mainWindow);
                                         _mainWindow.Hide();
                                         adminWindow.Show();
-                                    _mainWindow.AuthenticationPassBox.Clear();
-                                    _mainWindow.Login.Clear();
+                                        _mainWindow.AuthenticationPassBox.Clear();
+                                        _mainWindow.Login.Clear();
                                 }
                                     else
                                         MessageBox.Show("Введён неправильный пароль");
@@ -90,7 +87,6 @@ namespace MyProject.Autentification
         }
         private RelayCommand _registration;
         private AdminWindow adminWindow;
-
         public RelayCommand Registration
         {
             get

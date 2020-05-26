@@ -7,15 +7,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MyProject.User
 {
     public class Visit:INotifyPropertyChanged
-    {
-
-       
+    {       
         private string _docName;
-
         public string DocName
         {
             get
@@ -109,28 +107,24 @@ namespace MyProject.User
 
             }
         }
-        private int id;
-       
-       
+        private int id;            
         public Visit()
         {
-        }
-
-    
+        }   
        
-        public void AddNewVisit(int id, int doctorid)
+        public bool AddNewVisit(int id, int doctorid)
         {
+            bool flag = false;
             SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);
             try
             {
                 connection.Open();
             }
             finally
-            {
-                
+            {                
                 string select = $"select * FROM VISIT WHERE TIME='{TimeVisit}' AND DATE='{DateVisit}' AND idDoctor='{doctorid}'";
                 SqlCommand command = new SqlCommand(select, connection);
-               using(SqlDataReader reader= command.ExecuteReader())
+                using(SqlDataReader reader= command.ExecuteReader())
                 {
                     if (!reader.HasRows)
                     {
@@ -138,13 +132,14 @@ namespace MyProject.User
                         command.CommandText = insert;
                         reader.Close();
                         command.ExecuteNonQuery();
-                       
-
+                        flag = true;
                     }
+                    else
+                        MessageBox.Show("Данное время занято!");
                 }
-                connection.Close();
-               
+                connection.Close();                
             }
+            return flag;
         }
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

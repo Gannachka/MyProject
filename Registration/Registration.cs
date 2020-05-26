@@ -83,7 +83,6 @@ namespace MyProject.Registration
         {
             string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
             Match isMatch = Regex.Match(email, pattern, RegexOptions.IgnoreCase);
-
             return isMatch.Success;
         }
         private string _login;
@@ -122,8 +121,7 @@ namespace MyProject.Registration
         private string GetHash(string input)
         {
             var md5 = MD5.Create();
-            var hash = md5.ComputeHash(Convert.FromBase64String(input));
-
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
             return Convert.ToBase64String(hash);
         }
         [Required(ErrorMessage = "Введите день рождения")]
@@ -210,8 +208,9 @@ namespace MyProject.Registration
 
                                             using (SqlDataReader reader1 = command.ExecuteReader())
                                             {
-                                                if (!reader1.Read())
+                                                if (!reader1.HasRows)
                                                 {
+                                                    reader1.Close();
                                                     string insert = $"insert into AUTINTIFICATION (PASSWORD, LOGIN, IDPACIENT) values ( '{Password}','{Email}', @ID)";
                                                     command.CommandText = insert0;
                                                     command.ExecuteNonQuery();
@@ -241,14 +240,10 @@ namespace MyProject.Registration
                                         }
                                         connection.Close();
                                     }
-                                }
-                               
+                                }                               
                             }
                             else
                                 MessageBox.Show("Пароли не совпадают");
-
-
-
                         }
                         else
                             MessageBox.Show("Проверьте введённые данные");

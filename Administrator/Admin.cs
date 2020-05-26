@@ -18,7 +18,6 @@ namespace MyProject.Administrator
     public class Admin:INotifyPropertyChanged
     {
         public int ID { get; private set; }
-
         private int _idpacient;
         public int IDpacient
         {
@@ -86,7 +85,6 @@ namespace MyProject.Administrator
                 OnPropertyChanged("Surname");
             }
         }
-        
         private string _email;
         public string Email
         {
@@ -129,7 +127,6 @@ namespace MyProject.Administrator
             }
         }
         private string _exrerience;
-        // private readonly object Execute;
         public string Experience
         {
             get
@@ -142,8 +139,6 @@ namespace MyProject.Administrator
                 OnPropertyChanged("Experience");
             }
         }
-      
-
         private int _room;
         public int Room
         {
@@ -173,8 +168,7 @@ namespace MyProject.Administrator
         private string GetHash(string input)
         {
             var md5 = MD5.Create();
-            var hash = md5.ComputeHash(Convert.FromBase64String(input));
-
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
             return Convert.ToBase64String(hash);
         }
         private string _password;
@@ -201,10 +195,7 @@ namespace MyProject.Administrator
             _idpacient = id;
             _iddoctor = id;
         }
-        public Admin()
-        {
-
-        }
+        public Admin(){}
        public void AddNewDoctor()
         {
             if (Doctor != null && Login != null && Password != null  && Specialization != null && Experience != null)
@@ -258,6 +249,7 @@ namespace MyProject.Administrator
             else
                 MessageBox.Show("Пароль должен состоять из");
         }
+
         public void DeletePacient()
         {
             SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);
@@ -266,14 +258,18 @@ namespace MyProject.Administrator
                 connection.Open();
             }
             finally
-            {
+            {                
                 string delete = $"delete from AUTINTIFICATION where IDPACIENT={IDpacient}";
                 SqlCommand command1 = new SqlCommand(delete, connection);
                 command1.ExecuteNonQuery();
+                string delete2 = $"delete from VISIT where IDPACIENT={IDpacient}";
+                SqlCommand command2 = new SqlCommand(delete2, connection);
+                command2.ExecuteNonQuery();
                 string deletePacient = $"delete from PACIENT where PACIENTID={IDpacient}";
                 SqlCommand command = new SqlCommand(deletePacient, connection);
                 command.ExecuteNonQuery();
                 connection.Close();
+                
             }
         }
         public void DeleteDoctor()
@@ -288,6 +284,15 @@ namespace MyProject.Administrator
 
                 string delete1 = $"delete from AUTINTIFICATION where IDDOCTOR={IDdoctor}";
                 SqlCommand command1 = new SqlCommand(delete1, connection);
+                command1.ExecuteNonQuery();
+                string delete2 = $"delete from VISIT where IDDOCTOR={IDdoctor}";
+                SqlCommand command2 = new SqlCommand(delete2, connection);
+                command2.ExecuteNonQuery();
+                string delete3 = $"delete from TABLECONNECTION where idDOCTOR={IDdoctor}";
+                SqlCommand command3 = new SqlCommand(delete3, connection);
+                command3.ExecuteNonQuery();
+                string delete4 = $"delete from TIMETABLE where IDDOCTOR={IDdoctor}";
+                SqlCommand command4 = new SqlCommand(delete4, connection);
                 command1.ExecuteNonQuery();
                 string delete = $"delete from DOCTOR where DOCTORID ={IDdoctor}";
                 SqlCommand command = new SqlCommand(delete, connection);

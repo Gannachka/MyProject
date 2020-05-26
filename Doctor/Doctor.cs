@@ -152,9 +152,8 @@ namespace MyProject.Doctor
                     connection.Open();
                 }
                 finally
-                {
-                    
-                    string update = $"update VISIT SET TREATMENT='{Treatment}' WHERE VISITID={IdVisit} ";
+                {                    
+                    string update = $"update VISIT SET TREATMENT='{_treatmrnt}' WHERE VISITID={IdVisit} ";
                     SqlCommand command = new SqlCommand(update, connection);
                     command.ExecuteNonQuery();
                     connection.Close();
@@ -180,8 +179,7 @@ namespace MyProject.Doctor
                 }
                 finally
                 {
-
-                    string update = $"update VISIT SET DIAGNOSIS='{Diagnose}' WHERE VISITID={IdVisit} ";
+                    string update = $"update VISIT SET DIAGNOSIS='{_diagnose}' WHERE VISITID={IdVisit} ";
                     SqlCommand command = new SqlCommand(update, connection);
                     command.ExecuteNonQuery();
                     connection.Close();

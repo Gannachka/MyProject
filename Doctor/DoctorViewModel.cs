@@ -66,24 +66,24 @@ namespace MyProject.Doctor
             finally
             {
 
-                string select1 = $"select * FROM PACIENT INNER JOIN (SELECT * FROM VISIT INNER JOIN DOCTOR ON VISIT.IDDOCTOR=DOCTOR.DOCTORID WHERE DOCTOR.DOCTORID={id} AND VISIT.DATE >  CONVERT (date, SYSDATETIME()) ) VISITS ON VISITS.IDPACIENT=PACIENT.PACIENTID";
+                string select1 = $"select * FROM PACIENT INNER JOIN (SELECT * FROM VISIT INNER JOIN DOCTOR ON VISIT.IDDOCTOR=DOCTOR.DOCTORID WHERE DOCTOR.DOCTORID={id} AND VISIT.DATE >=  CONVERT (date, SYSDATETIME()) ) VISITS ON VISITS.IDPACIENT=PACIENT.PACIENTID";
                 SqlCommand command = new SqlCommand(select1, connection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Doctor doctor = new Doctor();
-                        doctor.IdVisit = reader.GetInt32(1);
+                        doctor.IdVisit = reader.GetInt32(8);
                         doctor.PacientName = reader.GetString(3);
                         doctor.Surname = reader.GetString(4);
                         doctor.DataVisit = reader.GetDateTime(11);
                         doctor.TimeVisit = reader.GetTimeSpan(12);
-                        if (reader.IsDBNull(0))
+                        if (!reader.IsDBNull(13))
                         {
                             doctor.Diagnose = reader.GetString(13);
 
                         }
-                        if (reader.IsDBNull(0))
+                        if (!reader.IsDBNull(14))
                         {
                             doctor.Treatment = reader.GetString(14);
                         }
@@ -119,8 +119,7 @@ namespace MyProject.Doctor
                         if (counter==5)
                         {
                             TIMETABLE.Add(timetable);
-                            timetable = new Timetable();
-                            
+                            timetable = new Timetable();                            
                             counter = 0;
                         }
                         timetable.Room = reader.GetInt32(9);
