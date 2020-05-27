@@ -26,6 +26,7 @@ namespace MyProject.User
                 OnPropertyChanged("DocName");
             }
         }
+        public UserViewModel UserViewModel { get; private set; }
         private string _docSpecialization;
         public string DocSpesialization
         {
@@ -112,9 +113,9 @@ namespace MyProject.User
         {
         }   
        
-        public bool AddNewVisit(int id, int doctorid)
+        public User AddNewVisit(int id, int doctorid)
         {
-            bool flag = false;
+            User user=null;
             SqlConnection connection = new SqlConnection(MyProject.Properties.Settings.Default.Connection);
             try
             {
@@ -132,14 +133,24 @@ namespace MyProject.User
                         command.CommandText = insert;
                         reader.Close();
                         command.ExecuteNonQuery();
-                        flag = true;
+                        string findInfo = $"select ROOM, NAME from DOCTOR where DOCTORID={doctorid}";
+                        command.CommandText = findInfo;
+                        using (SqlDataReader dataReader = command.ExecuteReader()) 
+                        {
+                            dataReader.Read();
+                            user = new User();
+                            user.DateVisit = this.DateVisit;
+                            user.TimeVisit = this.TimeVisit;
+                            user.DocName = dataReader.GetString(1);
+                            user.Room = dataReader.GetInt32(0);
+                        }
                     }
                     else
                         MessageBox.Show("Данное время занято!");
                 }
                 connection.Close();                
             }
-            return flag;
+            return user;
         }
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

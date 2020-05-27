@@ -104,7 +104,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Медицинская карта" Grid.Column="4" Grid.ColumnSpan="6" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="2" Foreground="#207676"   FontWeight="ExtraBold" FontStretch="UltraCondensed" Grid.Row="0" />
 
-                    <DataGrid Grid.Row="3"  CanUserAddRows="False"   Grid.Column="1" Grid.ColumnSpan="12" AutoGenerateColumns="False" HeadersVisibility="Column"  SelectedItem="{Binding USER}"  ItemsSource="{Binding VISITS}" Grid.RowSpan="6" Background="WhiteSmoke" >
+                    <DataGrid Grid.Row="3" IsReadOnly="True"  CanUserAddRows="False"   Grid.Column="1" Grid.ColumnSpan="12" AutoGenerateColumns="False" HeadersVisibility="Column"  SelectedItem="{Binding USER}"  ItemsSource="{Binding VISITS}" Grid.RowSpan="6" Background="WhiteSmoke" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Path=DateVisit, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}"    Header="Дата приёма" Width="100"/>
                             <DataGridTextColumn Binding="{Binding Path=TimeVisit,   UpdateSourceTrigger=PropertyChanged}" Header="Время приёма" Width="100"/>
@@ -190,7 +190,7 @@
                             <ImageBrush ImageSource="Images\right.png"/>
                         </Button.Background>
                     </Button>
-                    <Button  x:Name="Left" Grid.RowSpan="2"  Grid.Row="16" Grid.Column="5" DataContext="{Binding}"  BorderBrush="{x:Null}" Command="{Binding left}">
+                    <Button  x:Name="Left" Grid.RowSpan="2"  Grid.Row="16" Grid.Column="5" DataContext="{Binding}"  BorderBrush="{x:Null}" Command="{Binding Left}">
                         <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyProject"
         mc:Ignorable="d"
-        Title="DoctorWindow"  Height="570" Width="800" Closing="Window_Closing"  >
+        Title="DoctorWindow"  Height="570" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" >
     <Window.Background >
 
         <ImageBrush  ImageSource="Images/fon2.png"/>
@@ -136,7 +136,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Пациенты" Grid.Column="5 " Grid.ColumnSpan="4" FontFamily="Gabriola" FontSize="35"  Grid.RowSpan="2" Foreground="#207676" FontWeight="ExtraBold" FontStretch="UltraCondensed" />
-                <DataGrid  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="8" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="Column"  CurrentItem="" SelectedItem="{Binding DOCTOR}" ItemsSource="{Binding VISIT}"  Background="#FFD8ECF9" >
+                <DataGrid  Grid.Row="3" IsReadOnly="True" Grid.Column="1" Grid.ColumnSpan="12" Grid.RowSpan="8" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="Column"  CurrentItem="" SelectedItem="{Binding DOCTOR}" ItemsSource="{Binding VISIT}"  Background="#FFD8ECF9" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=TimeVisit,  UpdateSourceTrigger=PropertyChanged}"  Header="Время приёма" Width="100"/>
                         <DataGridTextColumn Binding="{Binding Path=DataVisit, StringFormat={}{0:dd.MM.yyyy}, UpdateSourceTrigger=PropertyChanged}" Width="100" Header="Дата приёма"/>

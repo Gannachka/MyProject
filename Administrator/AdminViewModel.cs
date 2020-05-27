@@ -72,7 +72,8 @@ namespace MyProject.Administrator
                             else
                             {                               
                                 pacient.DeletePacient();
-                                PACIENT.Remove(pacient);                                                             
+                                PACIENT.Remove(pacient);
+                                MessageBox.Show("Пациент удалён!");
                             }
                                
                         }
@@ -98,6 +99,7 @@ namespace MyProject.Administrator
                             {
                                 doctor.DeleteDoctor();
                                 DOCTOR.Remove(doctor);
+                                MessageBox.Show("Врач удалён!");
                             }
                             
                         }
@@ -132,15 +134,18 @@ namespace MyProject.Administrator
                         Add pacient = obj as Add;
                         if (pacient != null)
                         {
-                            pacient.AddNewPacient();
-                            Admin admin = new Admin();
-                            admin.IDpacient = pacient.ID;
-                            admin.Name = pacient.Name;
-                            admin.Surname = pacient.Surname;
-                            admin.Email = pacient.Email;
-                            admin.Gender = pacient.Gender;
-                            PACIENT.Add(admin);
-                        }
+                            if (pacient.AddNewPacient())
+                            {
+                                Admin admin = new Admin();
+                                admin.IDpacient = pacient.ID;
+                                admin.Name = pacient.Name;
+                                admin.Surname = pacient.Surname;
+                                admin.Email = pacient.Email;
+                                admin.Gender = pacient.Gender;
+                                PACIENT.Add(admin);
+                                MessageBox.Show("Пациент добавлен!");
+                            }
+                        }                      
                     }));
             }
         }
@@ -171,10 +176,14 @@ namespace MyProject.Administrator
                     {
                         Admin admin = obj as Admin;
                         if (admin != null)
-                        {                            
-                            admin.AddNewDoctor();
-                            DOCTOR.Add(admin);
+                        {
+                            if (admin.AddNewDoctor())
+                            {
+                                DOCTOR.Add(admin);
+                                MessageBox.Show("Доктор добавлен!");
+                            }
                         }
+
 
                     }));
             }
@@ -362,14 +371,18 @@ namespace MyProject.Administrator
                     (_searchPacient = new RelayCommand(obj =>
                        {
                            PACIENTS.Clear();
-                          
-                           ShowPacient pacient = new ShowPacient(this);
-                           var search = from t in PACIENT where t.Surname.Contains ( _adminWindow.SearchPacient.Text) || t.Name.Contains( _adminWindow.SearchPacient.Text) || Convert.ToString(t.IDpacient) == _adminWindow.SearchPacient.Text select t;
-                           foreach (var item in search)
+                           if (_adminWindow.SearchPacient.Text != null)
                            {
-                               PACIENTS.Add(item);
+                               ShowPacient pacient = new ShowPacient(this);
+                               var search = from t in PACIENT where t.Surname.Contains(_adminWindow.SearchPacient.Text) || t.Name.Contains(_adminWindow.SearchPacient.Text) || Convert.ToString(t.IDpacient) == _adminWindow.SearchPacient.Text select t;
+                               foreach (var item in search)
+                               {
+                                   PACIENTS.Add(item);
+                               }
+                               pacient.ShowDialog();
                            }
-                           pacient.ShowDialog();
+                           else
+                               MessageBox.Show("Введите данные");
 
                        }));
             }
@@ -383,13 +396,17 @@ namespace MyProject.Administrator
                     (_searchDoctor = new RelayCommand(obj =>
                     {
                         DOCTORS.Clear();
+                        if (_adminWindow.SearchDoctor.Text != "") { 
                         ShowDoctor pacient = new ShowDoctor(this);
                         var search = from t in DOCTOR where t.Specialization.Contains( _adminWindow.SearchDoctor.Text) || t.Doctor.Contains( _adminWindow.SearchDoctor.Text) || Convert.ToString(t.IDdoctor) == _adminWindow.SearchDoctor.Text select t;
                         foreach (var item in search)
                         {
                             DOCTORS.Add(item);
+                        }                        
+                            pacient.ShowDialog();
                         }
-                        pacient.ShowDialog();
+                        else
+                            MessageBox.Show("Введите данные");
 
                     }));
             }

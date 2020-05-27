@@ -135,8 +135,12 @@ namespace MyProject.Administrator
             }
             set
             {
-                _exrerience = value;
-                OnPropertyChanged("Experience");
+                
+               if (Regex.IsMatch(value, @"^[0-9]+(?:\,[0-9]*)?$") || value=="")
+                {
+                    _exrerience = value;
+                    OnPropertyChanged("Experience");
+                }
             }
         }
         private int _room;
@@ -196,9 +200,10 @@ namespace MyProject.Administrator
             _iddoctor = id;
         }
         public Admin(){}
-       public void AddNewDoctor()
+       public bool AddNewDoctor()
         {
-            if (Doctor != null && Login != null && Password != null  && Specialization != null && Experience != null)
+            bool flag = false;
+            if (Doctor != null && Login != null && Password != null && Specialization != null && Experience != null)
             {
 
                 SqlConnection connection = new SqlConnection(Properties.Settings.Default.Connection);
@@ -235,6 +240,7 @@ namespace MyProject.Administrator
                             }
                             command.ExecuteNonQuery();
                             transaction.Commit();
+                            flag = true;
                         }
                         catch (Exception ex)
                         {
@@ -244,10 +250,13 @@ namespace MyProject.Administrator
 
                     }
                 }
-                
+
             }
             else
-                MessageBox.Show("Пароль должен состоять из");
+            {
+                MessageBox.Show("Заполните поля!");
+            }
+            return flag;
         }
 
         public void DeletePacient()

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyProject" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="AddPacient" Height="570" Width="800"   >
+        Title="AddPacient" Height="570" Width="800" WindowStartupLocation="CenterScreen"  >
     <Window.Background >
         <ImageBrush  ImageSource="Images/fon2.png"/>
     </Window.Background>

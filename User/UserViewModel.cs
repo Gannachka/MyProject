@@ -121,7 +121,7 @@ namespace MyProject.User
              
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    while (reader.Read())
                     {
                         User user = new User();
                         user.DocName = reader.GetString(2);
@@ -152,28 +152,30 @@ namespace MyProject.User
             }
             finally
             {
-                if (VISITS.Count > 0)
-                {  
+               
 
-                    string select1 = $"select * FROM DOCTOR INNER JOIN (SELECT * FROM VISIT INNER JOIN PACIENT  ON VISIT.IDPACIENT=PACIENT.PACIENTID WHERE PACIENT.PACIENTID={id} AND VISIT.DATE >  CONVERT (date, SYSDATETIME())) VISITS ON VISITS.IDDOCTOR=DOCTOR.DOCTORID";
+                    string select1 = $"select * FROM DOCTOR INNER JOIN (SELECT * FROM VISIT INNER JOIN PACIENT  ON VISIT.IDPACIENT=PACIENT.PACIENTID WHERE PACIENT.PACIENTID={id} AND VISIT.DATE > CONVERT (date, SYSDATETIME())) VISITS ON VISITS.IDDOCTOR=DOCTOR.DOCTORID";
                     SqlCommand command = new SqlCommand(select1, connection);
-                    using (SqlDataReader reader = command.ExecuteReader())
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            User FutureVisits = new User();
-                            FutureVisits.DocName = reader.GetString(2);
-                            FutureVisits.DateVisit = reader.GetDateTime(9);
-                            FutureVisits.TimeVisit = reader.GetTimeSpan(10);
-                            FutureVisits.Room = reader.GetInt32(5);
-                            VISIT.Add(FutureVisits);                
-                        }
+                        User FutureVisits = new User();
+                        FutureVisits.DocName = reader.GetString(2);
+                        FutureVisits.DateVisit = reader.GetDateTime(9);
+                        FutureVisits.TimeVisit = reader.GetTimeSpan(10);
+                        FutureVisits.Room = reader.GetInt32(5);
+                        VISIT.Add(FutureVisits);
                     }
-                    connection.Close();
-                    FutureVisits = VISIT[0];
-                }
-            }
 
+                    connection.Close();
+                    if (VISIT.Count > 0)
+                    {
+                        FutureVisits = VISIT[0];
+                    }
+                }
+                
+            }
         }
         public void ChangeSpecialisation()
         {
@@ -279,10 +281,15 @@ namespace MyProject.User
                              Visit.TimeVisit = time.TimeOfDay;
                              int DoctorId;
                              Doctors.TryGetValue(make.doctor_Name.Text, out DoctorId);
-                             if(Visit.AddNewVisit(User.id, DoctorId))
-                             make.Close();
+                             User user = Visit.AddNewVisit(User.id, DoctorId);
+                             if (user != null)
+                             {
+                                 make.Close();
+                                 VISIT.Add(user);
+                             }
                              Doctors.Clear();
-                           
+                             MessageBox.Show($"Вы записаны к {user.DocName} {user.DateVisit} в {user.TimeVisit}! ");
+
                          }
                          else
                              MessageBox.Show("Дайте врачам отдохнуть");
@@ -292,6 +299,7 @@ namespace MyProject.User
                  }));
             }
         }
+
         private RelayCommand _right;
         public RelayCommand Right
         {
@@ -309,6 +317,26 @@ namespace MyProject.User
                             else
                                 FutureVisits = VISIT[i];
                         }                  
+                    }));
+            }
+        }
+        private RelayCommand _left;
+        public RelayCommand Left
+        {
+            get
+            {
+                return _left ??
+                    (_left = new RelayCommand(obj =>
+                    {
+                        if (VISIT.Count != 0)
+                        {
+                            int i = VISIT.IndexOf(FutureVisits);
+                            i--;
+                            if (i ==- 1)
+                                FutureVisits = VISIT[VISIT.Count-1];
+                            else
+                                FutureVisits = VISIT[i];
+                        }
                     }));
             }
         }

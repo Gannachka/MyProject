@@ -102,9 +102,6 @@
     <Compile Include="Doctor\Doctor.cs" />
     <Compile Include="Doctor\DoctorViewModel.cs" />
     <Compile Include="Doctor\Timetable.cs" />
-    <Compile Include="EditWindow.xaml.cs">
-      <DependentUpon>EditWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Make_appointment.xaml.cs">
       <DependentUpon>Make_appointment.xaml</DependentUpon>
     </Compile>
@@ -138,10 +135,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DoctorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,6 +196,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -240,6 +240,7 @@ namespace MyProject.Registration
                                         }
                                         connection.Close();
                                     }
+                                    MessageBox.Show("Добро пожаловать в наш центр!");
                                 }                               
                             }
                             else

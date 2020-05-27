@@ -152,8 +152,9 @@ namespace MyProject.Administrator
                 }
             }
 
-        public void AddNewPacient()
+        public bool AddNewPacient()
         {
+            bool flag = false;
             if (Name != null && Surname != null && Password != null && Email != null && Bday != null)
             {
 
@@ -192,6 +193,7 @@ namespace MyProject.Administrator
                             }
                             command.ExecuteNonQuery();
                             transaction.Commit();
+                            flag = true;
                         }
                         catch (Exception ex)
                         {
@@ -204,7 +206,8 @@ namespace MyProject.Administrator
 
             }
             else
-                MessageBox.Show("Пароль должен состоять из");
+                MessageBox.Show("Убедитесь, что все поля заполнены");
+            return flag;
         }
 
 
